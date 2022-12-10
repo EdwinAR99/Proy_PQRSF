@@ -17,7 +17,7 @@ import com.co.unicaca.pqrsf.entidad.Respuesta;
 import com.co.unicaca.pqrsf.servicio.ResServicio;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/respuesta")
 public class CoRespuesta {
 	

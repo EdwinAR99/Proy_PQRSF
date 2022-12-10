@@ -17,7 +17,7 @@ import com.co.unicaca.pqrsf.entidad.Peticionario;
 import com.co.unicaca.pqrsf.servicio.PetServicio;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/peticionario")
 public class CoPeticionario {
 	

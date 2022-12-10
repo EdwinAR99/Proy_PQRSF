@@ -34,7 +34,7 @@ public class Traslado {
     private String traDependencia;
     
     @Column(name="traOficioNum")
-    private int traOficioNum;
+    private String traOficioNum;
     
     @Column(name="traOficio")
     private byte[] traOficio;
@@ -42,7 +42,7 @@ public class Traslado {
 	public Traslado() {
 	}
 
-	public Traslado(int traId, PQRSF pqrId, String traNombre, String traDependencia, int traOficioNum, byte[] traOficio) {
+	public Traslado(int traId, PQRSF pqrId, String traNombre, String traDependencia, String traOficioNum, byte[] traOficio) {
 		this.traId = traId;
 		this.pqrId = pqrId;
 		this.traNombre = traNombre;
@@ -83,11 +83,11 @@ public class Traslado {
 		this.traDependencia = traDependencia;
 	}
 
-	public int getTraOficioNum() {
+	public String getTraOficioNum() {
 		return traOficioNum;
 	}
 
-	public void setTraOficioNum(int traOficioNum) {
+	public void setTraOficioNum(String traOficioNum) {
 		this.traOficioNum = traOficioNum;
 	}
 

@@ -2,6 +2,7 @@ package com.co.unicaca.pqrsf.servicioImpl;
 
 import org.springframework.stereotype.Service;
 
+import com.co.unicaca.pqrsf.entidad.Usuario;
 import com.co.unicaca.pqrsf.repositorio.IUsuRepositorio;
 import com.co.unicaca.pqrsf.servicio.UsuServicio;
 
@@ -15,12 +16,15 @@ public class UsuServicioImpl implements UsuServicio{
     }
 	
 	@Override
-	public int iniciarSesion(String usuNombre, String usuContraseña) {
+	public boolean iniciarSesion(String usuNombre, String usuContraseña) {
 		try {
-			String nombre = usuRepositorio.findByUsuario(usuNombre, usuContraseña);
-            return 1;
+			Usuario usu = usuRepositorio.findByUsuario(usuNombre, usuContraseña);
+			if (usuNombre.equals(usu.getUsuNombre()) && usuContraseña.equals(usu.getUsuContraseña())) {
+				return true;
+			}
+			return false;
         } catch (Exception e) {
-            return 0;
+            return false;
         }
 	}
 }

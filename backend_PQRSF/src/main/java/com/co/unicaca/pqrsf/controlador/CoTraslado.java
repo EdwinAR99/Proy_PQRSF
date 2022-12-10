@@ -18,7 +18,7 @@ import com.co.unicaca.pqrsf.entidad.Traslado;
 import com.co.unicaca.pqrsf.servicio.TraServicio;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/traslado")
 public class CoTraslado {
 
