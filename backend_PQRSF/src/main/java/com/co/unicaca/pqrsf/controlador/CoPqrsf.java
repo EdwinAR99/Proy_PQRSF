@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.co.unicaca.pqrsf.entidad.PQRSF;
+import com.co.unicaca.pqrsf.servicio.PetServicio;
 import com.co.unicaca.pqrsf.servicio.PqrServicio;
 
 @RestController
@@ -23,6 +24,9 @@ public class CoPqrsf {
 
 	@Autowired
 	private PqrServicio pqrServicio; 
+	
+	@Autowired
+	private PetServicio petServicio;
 	
 	@GetMapping(value="/listPqrsf")
 	public ResponseEntity list() {
@@ -37,6 +41,8 @@ public class CoPqrsf {
 	@PostMapping(value="/addPqrsf")
 	public ResponseEntity add(@RequestBody PQRSF pqr) {
 		pqr.getTraId().get(0).setPqrId(pqr);
+		if (pqr.getPetId().getPetId() != 1)
+			petServicio.addPet(pqr.getPetId());
 		return new ResponseEntity(pqrServicio.addPqr(pqr), HttpStatus.OK);
 	}
 	

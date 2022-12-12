@@ -33,7 +33,7 @@ public class PqrServicioImpl implements PqrServicio {
 		if (aux != null) {
 			return true;
 		} else {
-			return true;
+			return false;
 		}
 	}
 
