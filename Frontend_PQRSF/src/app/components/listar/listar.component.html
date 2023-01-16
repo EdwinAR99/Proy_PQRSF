@@ -1,0 +1,55 @@
+
+<div class="content">
+  <form class="row">
+    <div class="col-md-12">
+      <input type="text" class="form-control" name="filterPost" placeholder="Buscar..." [(ngModel)]="filterPost">
+    </div>
+  </form>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">N°de Radicado</th>
+        <th scope="col">Fecha Recepcion</th>
+        <th scope="col">Fecha de Vencimiento</th>
+        <th scope="col">Tipo Peticionario</th>
+        <th scope="col">Tipo PQRSF</th>
+        <th scope="col">Asunto</th>
+        <th scope="col">Nombre Peticionario</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">E-Mail</th>
+        <th scope="col">Direccion</th>
+
+        <th scope="col">Editar</th>
+        <th scope="col">Seguimiento</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let PQRSF of pqrsf | filter:filterPost" class="table-light" >
+        <th scope="row">1</th>
+        <td>{{PQRSF.pqrId}}</td>
+        <td>{{PQRSF.pqrFechaAdmision}}</td>
+        <td>{{PQRSF.pqrFechaVencimiento}}</td>
+        <td>{{PQRSF.petId.petTipo}}</td>
+        <td>{{PQRSF.pqrTipo}}</td>
+        <td>{{PQRSF.pqrAsunto}}</td>
+        <td>{{PQRSF.petId.petNombre}}</td>
+        <td>{{PQRSF.petId.petTelefono}}</td>
+        <td>{{PQRSF.petId.petCorreo}}</td>
+        <td>{{PQRSF.petId.petDireccion}}</td>
+        <td>
+          <button (click)="editar(PQRSF)" type="button" class="btn btn-outline-primary" [routerLink]="['/editar']"
+            routerLinkActive="router-link-active">Editar</button>
+        </td>
+        <td>
+          <button (click)="getSeguimiento(PQRSF)" type="button" class="btn btn-outline-primary" [routerLink]="['/trazabilidad']"
+            routerLinkActive="router-link-active">Trazabilidad</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>

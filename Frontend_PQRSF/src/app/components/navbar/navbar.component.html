@@ -1,0 +1,9 @@
+<header class="rounded-bottom header">
+    <nav>
+       <ul class="nav-links">
+            <li><a class="nav-link p-1" [routerLink]="['/']">Consultar/Listar</a></li>
+            <li><a class="nav-link p-1" [routerLink]="['/registrar']" >Registrar</a></li>
+       </ul>            
+    </nav>
+    <a class="nav-link btn" [routerLink]="['/login']" (click)="SendLogOut($event)"><button>Cerrar Sesion</button></a>
+</header>

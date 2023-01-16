@@ -1,0 +1,124 @@
+#body {
+  height: 120%;
+  background-position: center;
+  background-attachment: fixed;
+  display: initial;
+}
+#head {
+  height: 85px;
+  width: 100%;
+}
+#imghead {
+  height: 100%;
+  width: 100%;
+}
+#secbody {
+  height: 1130px;
+  width: 100%;
+  position: absolute;
+}
+#imgfondo {
+  height: 1150px;
+  width: 100%;
+}
+#divantorcha {
+  background-position: center;
+  margin: auto;
+  float: right;
+  position: absolute;
+  right: 120px;
+  top: 0;
+  height: 100%;
+}
+#imgantorcha {
+  height: 100%;
+}
+#formregistro {
+  width: 90%;
+  height: 1000px;
+  position: relative;
+  margin-left: 100px;
+  padding-left: 53px;
+}
+#divform {
+  background-position: center;
+  margin: auto;
+  float: right;
+  position: absolute;
+  top: 0;
+  height: 1000px;
+  width: 100%;
+  padding-left: 50px;
+}
+#pRegistro {
+  text-align: center;
+  margin-top: 30px;
+  position: relative;
+  font-size: xx-large;
+  left: -10%;
+  margin-bottom: 50px;
+}
+#pqrRadicado {
+  width: 300px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+#pqrFecha {
+  width: 300px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+#petCorreo,
+#traDependencia,
+#petDireccion,
+#pqrMedio,
+#traOficioNum,
+#petTelefono,
+#petTipo,
+#pqrTipo,
+#traNombre {
+  width: 300px;
+  margin-bottom: 20px;
+}
+#petNombre {
+  width: 300px;
+  margin-bottom: 20px;
+}
+#pqrAsunto {
+  width: 300px;
+  height: 100px;
+  text-align: left;
+  padding-bottom: 10%;
+}
+#uploadImage1 {
+  background-color: #fac7c7;
+  border-color: #021ed3;
+  position: absolute;
+  width: 40%;
+  left: 441px;
+}
+#btnGardar {
+  width: 50%;
+  height: 60px;
+  margin-left: 3%;
+  background-color: #8b0000;
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
+#pnlPreview {
+  position: absolute;
+  width: 40%;
+  left: 450px;
+  height: 300px;
+}
+
+.thumb {
+  height: 300px;
+  border: 1px solid #000;
+  margin: 10px 5px 0 0;
+}
+
+#validationFeeback{
+  margin: 0;
+  padding: 0;
+}

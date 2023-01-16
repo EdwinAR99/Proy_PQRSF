@@ -1,0 +1,11 @@
+<nav id="navi" class="navbar navbar-dar rounded border-bottom border-light">
+  <a class="navbar-brand" disabled>
+    <img id="logo" src="/assets/img/LogoUni.png" width="100%" height="100">
+  </a>
+  <h2 id="titulo" style="color: rgb(249, 247, 247);" >SISTEMA DE GESTION DE PQRSF</h2>
+</nav>
+
+<app-navbar *ngIf="visualizarMenu()"></app-navbar>
+<app-login *ngIf="!visualizarMenu()"></app-login>
+<router-outlet *ngIf="visualizarMenu()"></router-outlet>
+

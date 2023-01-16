@@ -1,0 +1,37 @@
+<!-- Start: Login Form Basic -->
+<section class="divLog">
+    <div class="container container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-5">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <p class="fs-5 pInicioSesion">Inicio de Sesión</p>
+                        <div class="bs-icon-xl bs-icon-circle bs-icon-primary">
+                            <img class="logosesion" src="/assets/img/logou2.jpg?h=887b91eadb66ee0b63ae06a8a09f8713">
+                        </div>
+                        <form [formGroup]="myForm" (ngSubmit)="submitFormulario()">
+                            <div class="mb-3">
+                                <input formControlName="usuNombre" [class.is-invalid]="f.usuNombre.errors && f.usuNombre.touched" class="form-control" type="text" placeholder="Nombre de Usuario">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    Usuario obligatorio
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input formControlName="usuContrasenia" [class.is-invalid]="f.usuContrasenia.touched && f.usuContrasenia.errors" class="form-control" type="password" placeholder="Constraseña">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    Usuario obligatorio
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-block w-100" type="submit">Ingresar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divantorcha" class="divantorcha">
+        <img id="imgantorcha" class="imgantorcha" src="/assets/img/antorcha.png?h=7a6616543747daec34d3502f9dc12f43">
+    </div>
+</section><!-- End: Login Form Basic -->

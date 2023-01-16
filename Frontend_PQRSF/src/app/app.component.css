@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono&display=swap');
+
+#titulo {
+    font-family: 'Chivo Mono', monospace;
+    margin: 0%;
+    padding: auto;
+    position: relative;
+    right: 5%;
+    
+}
+
+#navi {
+    background: rgb(0,8,44);
+    background: linear-gradient(90deg, rgba(0,8,44,1) 0%, rgba(1,53,100,1) 50%, rgba(0,8,44,1) 100%);
+    overflow: hidden;
+}
+
+#logo {
+    margin: 0; 
+    padding: 0;
+    position: relative;
+    left: 50%;
+}
+
+.foot {
+    background: rgb(0,8,44);
+    background: linear-gradient(90deg, rgba(0,8,44,1) 0%, rgba(1,53,100,1) 50%, rgba(0,8,44,1) 100%);
+}
