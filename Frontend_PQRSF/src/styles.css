@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    background-image: url("/assets/img/Fondo.jpg?h=ed7379b2398364721c69db7cd30ba86d");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

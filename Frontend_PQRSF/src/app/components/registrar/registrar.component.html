@@ -1,0 +1,138 @@
+<section id="secbody" class="secbody">
+    <div id="divantorcha" class="divantorcha"><img id="imgantorcha" class="imgantorcha"
+            src="/assets/img/antorcha.png?h=36ddac2d96327445ed22a819ba25f9df"></div>
+    <div id="divform" class="divform">
+        <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" id="formregistro" class="formregistro">
+            <p class="d-sm-flex justify-content-sm-center" id="pRegistro">
+                <span style="color: rgb(249, 247, 247);">Registro Solicitudes PQRSF</span>
+            </p>
+            <div class="card" id="pnlPreview">
+                <div class="card-body">
+                    <iframe src="{{Spqr}}" width="100%" height="50px" frameborder="0"></iframe>
+                </div>
+            </div>
+
+            <div id="pqrRadicado">
+                <input formControlName="pqrRadicado" [class.is-invalid]="f.pqrRadicado.errors && f.pqrRadicado.touched"
+                    class="form-control d-sm-flex justify-content-center" type="text" required=""
+                    placeholder="Número de Radicado" name="pqrRadicado">
+                <div id="validationFeeback" class="invalid-feedback">
+                    Número de rardicado obligatorio.
+                </div>
+            </div>
+
+            <div id="pqrTipo">
+                <select formControlName="pqrTipo"
+                    [class.is-invalid]="f['pqrTipo'].value == 'Tipo PQRSF' && f.pqrTipo.touched" class="form-select"
+                    (change)="SendDataonChange($event)">
+                    <option selected disabled>Tipo PQRSF</option>
+                    <option value="PETICION">PETICIÓN</option>
+                    <option value="QUEJA">QUEJA</option>
+                    <option value="RECLAMO">RECLAMO</option>
+                    <option value="SUGERENCIA">SUGERENCIA</option>
+                    <option value="INFORMACION">INFORMACION</option>
+                    <option value="CONSULTA">CONSULTA</option>
+                    <option value="FELICITACIÓN">FELICITACIÓN</option>
+                </select>
+                <div id="validationFeeback" class="invalid-feedback">
+                    Tipo PQRSF obligatorio.
+                </div>
+            </div>
+
+            <label for="exampleFormControlInput1" class="form-label"
+                style="color: rgb(249, 247, 247); margin-top: 0;">Fecha de Admision</label>
+            <input formControlName="pqrFechaAdmision" class="bg-light form-control d-md-flex align-items-md-start"
+                id="pqrFecha" type="date" required="">
+
+            <label for="exampleFormControlInput1" class="form-label"
+                style="color: rgb(249, 247, 247); margin-top: 0;">Fecha de Vencimiento</label>
+            <input formControlName="pqrFechaVencimiento" class="bg-light form-control d-md-flex align-items-md-start"
+                id="pqrFecha" type="date" required="">
+
+            <div id="traOficioNum">
+                <input formControlName="traOficioNum"
+                    [class.is-invalid]="f.traOficioNum.errors && f.traOficioNum.touched"
+                    class="form-control d-md-flex align-items-md-start" type="text" placeholder="Número de Oficio"
+                    required="">
+                <div id="validationFeeback" class="invalid-feedback">
+                    Numero de oficio obligatorio.
+                </div>
+            </div>
+
+            <input 
+                class="border rounded-pill form-control d-sm-flex justify-content-sm-start align-items-sm-start align-items-lg-start"
+                type="file" id="uploadImage1" name="files[]">
+
+            <div id="traNombre">
+                <input formControlName="traNombre" [class.is-invalid]="f.traNombre.errors && f.traNombre.touched"
+                    class="form-control" type="text" placeholder="Traslado A">
+                <div id="validationFeeback" class="invalid-feedback">
+                    Nombre a quien va a trasladar obligatorio.
+                </div>
+            </div>
+
+            <div id="traDependencia">
+                <input formControlName="traDependencia"
+                    [class.is-invalid]="f.traDependencia.errors && f.traDependencia.touched" class="form-control"
+                    type="text" placeholder="Dependencia">
+                <div id="validationFeeback" class="invalid-feedback">
+                    Nombre de la dependencia obligatorio.
+                </div>
+            </div>
+
+            <div id="pqrMedio">
+                <select formControlName="pqrMedio"
+                    [class.is-invalid]="f['pqrMedio'] == 'Medio de Petición' && f.pqrMedio.touched" class="form-select">
+                    <option selected disabled>Medio de Petición</option>
+                    <option value="ESCRITO">ESCRITO</option>
+                    <option value="WEB">WEB</option>
+                </select>
+                <div id="validationFeeback" class="invalid-feedback">
+                    Debe seleccionar un medio por donde se recibio la peticion.
+                </div>
+            </div>
+
+            <div id="pqrMedio">
+                <input formControlName="pqrAsunto" id="pqrAsunto"
+                    [class.is-invalid]="f.pqrAsunto.errors && f.pqrAsunto.touched" class="form-control" type="text"
+                    placeholder="Asunto">
+                <div id="validationFeeback" class="invalid-feedback">
+                    Debe definir el asunto.
+                </div>
+            </div>
+
+            <div>
+                <select formControlName="petTipo"
+                    [class.is-invalid]="f['petTipo'] == 'Tipo Peticionario' && f.petTipo.touched"
+                    class="bg-white border-5 border-white form-select d-md-flex" id="petTipo">
+                    <option value="Tipo Peticionario" selected disabled>Tipo Peticionario</option>
+                    <option value="ANONIMO">ANONIMO</option>
+                    <option value="PREGRADO">ESTUDIANTE PREGRADO</option>
+                    <option value="POSGRADO">ESTUDIANTE POSGRADO</option>
+                    <option value="EMPLEADO">EMPLEADO</option>
+                    <option value="DOCENTE">DOCENTE</option>
+                    <option value="EGRESADO<">EGRESADO</option>
+                    <option value="JUBILADO">JUBILADO</option>
+                    <option value="PERSONA EXTERNA">PERSONA EXTERNA</option>
+                </select>
+                <div id="validationFeeback" class="invalid-feedback">
+                    Debe seleccionar un tipo de peticionario.
+                </div>
+            </div>
+
+            <div *ngIf="f['petTipo'].value !== 'ANONIMO' && f['petTipo'].value !== 'Tipo Peticionario'">
+                <input formControlName="petNombre" class="form-control" type="text" id="petNombre"
+                    placeholder="Nombre de Peticionario">
+                <input formControlName="petDireccion" class="form-control" type="text" id="petDireccion"
+                    placeholder="Dirección">
+                <input formControlName="petTelefono" class="form-control" type="text" id="petTelefono"
+                    placeholder="Teléfono">
+                <input formControlName="petCorreo" class="form-control" type="email" id="petCorreo"
+                    placeholder="Correo Electrónico">
+            </div>
+
+            <button class="btn btn-primary btnGuardar" id="btnGardar" type="submit">Guardar Registro
+            </button>
+        </form>
+    </div>
+</section>
