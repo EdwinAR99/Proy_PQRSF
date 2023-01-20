@@ -10,6 +10,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import { FilterPipe } from './components/Pipes/filter.pipe';
+//previes pdf
+import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 
 //Service
 import { PqrsfService } from './shared/services/pqrsf.service';
@@ -45,7 +47,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    PdfViewerModule
   ],
   providers: [PqrsfService],
   bootstrap: [AppComponent]

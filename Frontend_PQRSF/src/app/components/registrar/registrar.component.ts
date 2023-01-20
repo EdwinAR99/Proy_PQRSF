@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
+
 
 @Component({
   selector: 'app-registrar',
@@ -25,8 +27,17 @@ export class RegistrarComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private pqrSv: PqrsfService
+    private pqrSv: PqrsfService,
+    private sanitizer: DomSanitizer
   ) { }
+
+  /**atributos para la previsualizacion */
+  files: any = [];
+  loading: boolean = true;
+  public archivos: any = [];
+  public previFaile:string="";
+  archivoadjunto!: File;
+  
   
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -110,6 +121,9 @@ export class RegistrarComponent implements OnInit{
     this.tras.traNombre = this.myForm.value.traNombre;
     this.tras.traDependencia = this.myForm.value.traDependencia;
 
+    //archivo adjunto(pdf)
+    this.pqr.pqrAnexo= this.archivoadjunto;
+    
     this.pqr.traId = [this.tras];
     this.pqr.pqrMedio = this.myForm.value.pqrMedio;
     this.pqr.pqrAsunto = this.myForm.value.pqrAsunto;
@@ -133,6 +147,36 @@ export class RegistrarComponent implements OnInit{
     this.pqr.pqrEstado = 'TRAMITE';
   }
   
+  capturarFile(event: any) {
+    const archivoCapturado = event.target.files[0];
+    this.archivoadjunto = archivoCapturado;
+    this.pqr.pqrAnexo;
+    this.extraerBase(archivoCapturado).then((filePDF:any)=>{
+      this.previFaile = filePDF.base;
+      console.log(filePDF);
+    })
+    this.archivos.push(archivoCapturado);
+    //console.log(event.target.files);
+  }
+  extraerBase = async ($event: any) =>
+    new Promise((resolve, reject) => {
+      try {
+        const unsafeFile = window.URL.createObjectURL($event);
+        const filePDF = this.sanitizer.bypassSecurityTrustUrl(unsafeFile);
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => {
+          resolve({ base: reader.result });
+        };
+        reader.onerror = (error) => {
+          resolve({ base: null });
+        };
+      } catch (e) {
+        return null;
+      }
+      return null;
+    });
+
 }
 function archivoUp() {
   throw new Error('Function not implemented.');
