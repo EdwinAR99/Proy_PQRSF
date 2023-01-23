@@ -8,15 +8,12 @@
         <div class="progress-bar--progress">
           <span class="progress-bar--progress-value"
             matTooltip="numero de oficio {{traza[0].traOficioNum}} , Trasladado a {{traza[0].traNombre}} , Dependencia {{traza[0].traDependencia}} "
-            matTooltipClass="example-tooltip-uppercase" aria-label="Button that shows a red tooltip"
-            [style.--porcentaje]="tiempoPorcentaje">
+            matTooltipClass="example-tooltip-uppercase">
             {{tiempoPorcentaje}} %
           </span>
         </div>
         <div class="progress-bar--not-progress"></div>
-
       </div>
-
     </div>
     <div>
       <h4 style="margin: 5px;color: rgb(255, 255, 255);float: right;">Tiempo restante: {{tiempoRes}} dias</h4>
@@ -26,10 +23,9 @@
 </div>
 <div style="margin: 2%;">
   <div style="margin-left: 1%;">
-    <button type="button" class="btn btn-outline-light" (click)=activarEditar()
-    >Nuevo seguimiento</button>
-    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;"
-    >Agregar Respuesta</button>
+    <button type="button" class="btn btn-outline-light" (click)=activarEditar()>Nuevo seguimiento</button>
+    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;">Agregar
+      Respuesta</button>
   </div>
 </div>
 
@@ -70,7 +66,7 @@
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      <tr  class="table-light">
+      <tr class="table-light">
         <td>{{pqrRes.resFechaRespuesta}}</td>
         <td>{{pqrRes.resOficioR}}</td>
         <td>{{pqrRes.resTiempoRespuesta}}</td>
