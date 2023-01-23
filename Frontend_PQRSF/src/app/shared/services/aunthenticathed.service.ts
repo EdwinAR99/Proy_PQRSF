@@ -8,7 +8,7 @@ import { Usuario } from 'src/app/models/Usuario/usuario';
 export class AunthenticathedService {
 
   private urlAPI = 'http://localhost:8080';
-  private ingresar: boolean = true;
+  private ingresar: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -18,27 +18,27 @@ export class AunthenticathedService {
     }),
   };
 
-  async ingresarApp(obj: Usuario): Promise<boolean>{
+  async ingresarApp(obj: Usuario){
     const body = {
       "usuNombre": obj.usuNombre,
       "usuContraseña": obj.usuContraseña
     };
  
 
-    await this.httpClient.post<boolean>(this.urlAPI + "/login", body, this.httpHeader).subscribe((res)=>
+    return await this.httpClient.post<boolean>(this.urlAPI + "/login", body, this.httpHeader);/*.subscribe((res)=>
     {
       this.ingresar = res;
-    });
-
-    return this.ingresar;
+      console.log("Servicio")
+      return res;
+    });*/
   }
 
   getIngresar():boolean{
     return this.ingresar;
   } 
 
-  setIngresar(){
-    this.ingresar = true;
+  setIngresar(ingresar: boolean){
+    this.ingresar = ingresar;
   }
 
 }
