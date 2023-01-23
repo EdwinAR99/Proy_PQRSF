@@ -35,6 +35,7 @@ export class TrazabilidadComponent implements OnInit {
   pqrsf: PQRSF = new PQRSF();
   pqrRes:Respuesta=new Respuesta();
   option:number|undefined;
+  private mostrar: boolean = false;
   @Output() opcion:number | undefined;
 
   //Fechas
@@ -43,11 +44,15 @@ export class TrazabilidadComponent implements OnInit {
 
   constructor(private service: PqrsfService, private router: Router) {}
   activarEditar(){
+    if(this.option == 0){
+      this.option = 3;
+    }
     this.option = 0;
   }
   activarRespuesta(){
     this.option = 1;
   }
+
   ngOnInit(): void{
     this.getSeguimiento();
   }
@@ -64,7 +69,6 @@ export class TrazabilidadComponent implements OnInit {
     );
     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
     await new Promise(f => setTimeout(f, 1000));
-
     //Algoritmo de tiempo restante
     this.fecha = moment(this.pqrsf.pqrFechaVencimiento).format('yyyy-MM-DD');
     let fechaVencimiento: Date = new Date(this.fecha);
