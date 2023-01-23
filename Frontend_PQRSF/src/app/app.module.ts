@@ -24,6 +24,7 @@ import { ListarComponent } from './components/listar/listar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrazabilidadComponent } from './components/trazabilidad/trazabilidad.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RespuestaComponent } from './components/respuesta/respuesta.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListarComponent,
     NavbarComponent,
     TrazabilidadComponent,
-    FilterPipe 
+    FilterPipe,
+    RespuestaComponent 
   ],
   imports: [
     MatFormFieldModule,

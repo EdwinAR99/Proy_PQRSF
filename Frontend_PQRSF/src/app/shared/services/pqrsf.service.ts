@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { Traslado } from 'src/app/models/Traslado/traslado';
+import { Respuesta } from 'src/app/models/Respuesta/Respuesta';
 import { ConnectableObservable } from 'rxjs';
 
 
@@ -36,6 +37,9 @@ export class PqrsfService {
   }
   async getTraslado(id:number){
     return await this.httpClient.get<Traslado[]>(this.urlAPI + "/traslado/"+id+"/listTraslado");
+    
+  }async getRespuesta(id:number){
+    return await this.httpClient.get<Respuesta>(this.urlAPI + "/respuesta/listRespuesta/"+id);
   }
   async getPqr(id:number){
     return await this.httpClient.get<PQRSF>(this.urlAPI + "/pqrsf/listPqrsf/"+id);

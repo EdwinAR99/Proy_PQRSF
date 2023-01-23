@@ -17,7 +17,7 @@
 	min-width: 48px;
 	display: flex;
 	/*numero de aumento*/
-	width: 78%;
+	width:var(--porcentaje)'%';
 	align-items: center;
 	justify-content: flex-end;
 }

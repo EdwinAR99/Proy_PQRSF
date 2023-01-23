@@ -12,25 +12,13 @@
             <label class="form-label">Dependencia</label>
             <input type="text" class="form-control" id="pqrId">
         </div>
-        <div class="col-md-2">
-            <label class="form-label">Oficio de Respuesta</label>
-            <input type="text" class="form-control" id="pqrId">
+        <div class="col-md-4">
+            <label class="form-label">Oficio de Traslado</label>
+            <input type="file" class="form-control" id="pqrId">
         </div>
-        <div class="col-md-2">
-            <label class="form-label">Fecha de Respuesta</label>
-            <input formControlName="pqrFechaRespuesta" class="bg-light form-control d-md-flex align-items-md-start"
-            id="pqrFecha" type="date" required="">
-        </div>
-        <div class="col-md-2">
-            <label class="form-label">Tiempo de Respuesta</label>
-            <input type="text" class="form-control" id="pqrId">
-        </div>
-        <div style=" margin-left: 40%;">
-            <button type="button" class="btn btn-primary" [routerLink]="['/trazabilidad']"
-            routerLinkActive="router-link-active" >Cancelar</button>
+        <div class="col-md-1" style="margin-top: 2%;">
             <button type="button" class="btn btn-primary" [routerLink]="['/trazabilidad']"
             routerLinkActive="router-link-active">Guardar</button>
-
         </div>
 
     </form>

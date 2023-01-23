@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import { Router } from '@angular/router';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { Traslado } from 'src/app/models/Traslado/traslado';
+import { Respuesta } from 'src/app/models/Respuesta/Respuesta';
 import { DatePipe, formatDate } from '@angular/common';
 import * as moment from 'moment';
 import {
@@ -13,6 +14,8 @@ import {
 } from '@angular/common';
 import { isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { delay } from 'rxjs';
+import { MatHint } from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-trazabilidad',
@@ -24,18 +27,28 @@ export class TrazabilidadComponent implements OnInit {
   //Tiempo restante en dias
   tiempoRes: number | undefined;
   tiempoTrascurrido: number | undefined;
-
+  tiempoPorcentaje:number| undefined;
+  varPorcentaje:String | undefined;
   traza: Traslado[] = [];
+  resid:number | undefined;
   pqid: number | undefined;
   pqrsf: PQRSF = new PQRSF();
+  pqrRes:Respuesta=new Respuesta();
+  option:number|undefined;
+  @Output() opcion:number | undefined;
 
   //Fechas
   today: Date = new Date();
   fecha!: string;
 
   constructor(private service: PqrsfService, private router: Router) {}
-
-  ngOnInit(){
+  activarEditar(){
+    this.option = 0;
+  }
+  activarRespuesta(){
+    this.option = 1;
+  }
+  ngOnInit(): void{
     this.getSeguimiento();
   }
   async getSeguimiento() {
@@ -45,6 +58,9 @@ export class TrazabilidadComponent implements OnInit {
     );
     (await this.service.getPqr(id)).subscribe((data) => (
       this.pqrsf = data)
+    );
+    (await this.service.getRespuesta(id)).subscribe((data) => (
+      this.pqrRes = data)
     );
     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
     await new Promise(f => setTimeout(f, 1000));
@@ -60,7 +76,7 @@ export class TrazabilidadComponent implements OnInit {
     this.fecha = moment(this.pqrsf.pqrFechaAdmision).format('yyyy-MM-DD');
     let fechaAdmision: Date = new Date(this.fecha);
     this.tiempoTrascurrido = (fechaActual.getTime() - fechaAdmision.getTime())/86400000;
-
+    this.tiempoPorcentaje=Math.round((this.tiempoTrascurrido*100)/15);
     this.pqid = id;
   }
 }
