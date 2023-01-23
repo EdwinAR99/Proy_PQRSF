@@ -1,14 +1,16 @@
-<h4 *ngFor="let Traslado of traza " style="margin: 5px;color: rgb(255, 255, 255); margin: 2%;">Numero de Radicado : {{pqid}}</h4>
+<h4 *ngFor="let Traslado of traza " style="margin: 5px;color: rgb(255, 255, 255); margin: 2%;">Numero de Radicado :
+  {{pqid}}</h4>
 
 <div class="container">
   <div class="skills">
     <div class="progress-bar">
       <div class="progress-bar--gradient">
         <div class="progress-bar--progress">
-          <span class="progress-bar--progress-value" matTooltip="numero de oficio {{traza[0].traOficioNum}} , Trasladado a {{traza[0].traNombre}} , Dependencia {{traza[0].traDependencia}} "
-          matTooltipClass="example-tooltip-uppercase"
-          aria-label="Button that shows a red tooltip">
-              55%
+          <span class="progress-bar--progress-value"
+            matTooltip="numero de oficio {{traza[0].traOficioNum}} , Trasladado a {{traza[0].traNombre}} , Dependencia {{traza[0].traDependencia}} "
+            matTooltipClass="example-tooltip-uppercase" aria-label="Button that shows a red tooltip"
+            [style.--porcentaje]="tiempoPorcentaje">
+            {{tiempoPorcentaje}} %
           </span>
         </div>
         <div class="progress-bar--not-progress"></div>
@@ -17,41 +19,60 @@
 
     </div>
     <div>
-      <h4 style="margin: 5px;color: rgb(255, 255, 255);float: right;">tiempo restante : {{tiempo}}</h4>
+      <h4 style="margin: 5px;color: rgb(255, 255, 255);float: right;">Tiempo restante: {{tiempoRes}} dias</h4>
     </div>
   </div>
   <br>
 </div>
 <div style="margin: 2%;">
-         <button type="button" class="btn btn-outline-light" [routerLink]="['/editarTrazabilidad']"
-         routerLinkActive="router-link-active">Nuevo seguimiento</button>
+  <div style="margin-left: 1%;">
+    <button type="button" class="btn btn-outline-light" (click)=activarEditar()
+    >Nuevo seguimiento</button>
+    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;"
+    >Agregar Respuesta</button>
+  </div>
 </div>
-<br><br>
-<div class="table-responsive" style="margin: 2%;">
+
+<div *ngIf="option == 0">
+  <app-editar-seguimiento></app-editar-seguimiento>
+</div>
+<div *ngIf="option == 1">
+  <app-respuesta></app-respuesta>
+</div>
+<div class="table-responsive" style="margin: 4%;">
   <table class="table">
-    <thead >
+    <thead>
       <tr class="table-light">
-        <th scope="col">item</th>
         <th scope="col">N° Seguimiento</th>
         <th scope="col">N° oficio</th>
         <th scope="col">Traslado</th>
         <th scope="col">Dependencia</th>
-        <th scope="col">Oficio de Respuesta</th>
-        <th scope="col">Fecha de Respuesta</th>
-        <th scope="col">Tiempo de Respuesta</th>
+        <th scope="col">Oficio de Trasladado</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
       <tr *ngFor="let Traslado of traza " class="table-light">
-        <th scope="row">1</th>
         <td>{{Traslado.traId}}</td>
         <td>{{Traslado.traOficioNum}}</td>
         <td>{{Traslado.traNombre}}</td>
         <td>{{Traslado.traDependencia}}</td>
-        <td>Mediante Comunicado 8.1.2-52.5/120 del 04 de abril de 2022 se da respuesta al peticionario. Responde, Edgar
-          Camacho Godoy.
-        </td>
+        <td></td>
+
   </table>
-
 </div>
+<div class="table-responsive" style="margin: 4%;">
+  <table class="table">
+    <thead>
+      <tr class="table-light">
+        <th scope="col">Fecha de Respuesta</th>
+        <th scope="col">Oficio de Respuesta</th>
+        <th scope="col">Tiempo Respuesta</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr  class="table-light">
+        <td>{{pqrRes.resFechaRespuesta}}</td>
+        <td>{{pqrRes.resOficioR}}</td>
+        <td>{{pqrRes.resTiempoRespuesta}}</td>
 
+  </table>

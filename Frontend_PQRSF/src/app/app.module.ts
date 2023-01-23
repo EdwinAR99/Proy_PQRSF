@@ -10,6 +10,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import { FilterPipe } from './components/Pipes/filter.pipe';
+//previes pdf
+import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 
 //Service
 import { PqrsfService } from './shared/services/pqrsf.service';
@@ -22,6 +24,7 @@ import { ListarComponent } from './components/listar/listar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrazabilidadComponent } from './components/trazabilidad/trazabilidad.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RespuestaComponent } from './components/respuesta/respuesta.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListarComponent,
     NavbarComponent,
     TrazabilidadComponent,
-    FilterPipe 
+    FilterPipe,
+    RespuestaComponent 
   ],
   imports: [
     MatFormFieldModule,
@@ -45,7 +49,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    PdfViewerModule
   ],
   providers: [PqrsfService],
   bootstrap: [AppComponent]

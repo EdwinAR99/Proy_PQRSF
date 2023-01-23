@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit{
   }
 
   SendLogOut(event:any){
-    this.authSv.setIngresar();
+    this.authSv.setIngresar(false);
   }
 
 }

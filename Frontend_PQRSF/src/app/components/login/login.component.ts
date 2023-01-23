@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   myForm!: FormGroup;
   usu: Usuario = new Usuario();
+  log!: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
     return this.myForm.controls;
   }
 
-  public submitFormulario(){
+  public async submitFormulario(){
     if(this.myForm.invalid){
       Object.values(this.myForm.controls).forEach(control=>{
         control.markAllAsTouched();
@@ -40,7 +41,11 @@ export class LoginComponent implements OnInit {
     
     this.llenarEntidad();
 
-    if(!this.authSv.ingresarApp(this.usu)){
+    (await this.authSv.ingresarApp(this.usu)).subscribe((res) => (this.log = res));
+    await new Promise(f => setTimeout(f, 1000));
+
+    if(this.log){
+      this.authSv.setIngresar(true);
       alert("Login valido")
     } else {
       alert("Usuario o contraseña invalida")
