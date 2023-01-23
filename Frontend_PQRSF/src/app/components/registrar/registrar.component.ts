@@ -47,13 +47,13 @@ export class RegistrarComponent implements OnInit{
     });
 
 
-      this.Spqr=this.myForm.value.traOficioNum;
-   
+    this.Spqr=this.myForm.value.traOficioNum;
    
     this.rellenarForm();
 
     this.pqr = new PQRSF();
   }
+
   public rellenarForm(){
     this.myForm.patchValue({ pqrTipo:'Tipo PQRSF', pqrMedio: 'Medio de Petición', petTipo: 'Tipo Peticionario'});
     this.todayWithPipe = this.pipe.transform(this.today, 'yyyy-MM-dd');
