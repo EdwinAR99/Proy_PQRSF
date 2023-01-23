@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { Traslado } from 'src/app/models/Traslado/traslado';
+import { ConnectableObservable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,8 @@ export class PqrsfService {
   }
   async addPqr(pqr: PQRSF): Promise<boolean>{
     const body = JSON.stringify(pqr);
+    console.log(body);
+    console.log(pqr.pqrAnexo);
     await this.httpClient.post<boolean>(this.urlAPI + "/pqrsf/addPqrsf", body, this.httpHeader).subscribe((res)=>{
       this.result = res;
       console.log("Body " + body);
