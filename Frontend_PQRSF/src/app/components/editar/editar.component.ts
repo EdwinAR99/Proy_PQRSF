@@ -30,10 +30,10 @@ export class EditarComponent {
   
   ngOnInit() {
     this.myForm = this.fb.group({
-      pqrRadicado:['', Validators.required],
-      pqrFechaAdmision:['', Validators.required],
+      pqrRadicado:[{value: '', disabled: true}, Validators.required],
+      pqrFechaAdmision:[{value: '', disabled: true}, Validators.required],
       pqrFechaVencimiento:[ '' , Validators.required],
-      pqrTipo:['', Validators.required],
+      pqrTipo:[{value: '', disabled: true}, Validators.required],
       traOficioNum:['', Validators.required],
       traNombre:['', Validators.required],
       traDependencia:['', Validators.required],
@@ -51,10 +51,44 @@ export class EditarComponent {
     this.pqr = new PQRSF();
   }
 
-  public rellenarForm(){
-    this.myForm.patchValue({ pqrTipo:'Tipo PQRSF', pqrMedio: 'Medio de Petición', petTipo: 'Tipo Peticionario'});
-    this.todayWithPipe = this.pipe.transform(this.today, 'yyyy-MM-dd');
-    this.myForm.patchValue({ pqrFechaAdmision: this.todayWithPipe});    
+  public async rellenarForm(){
+    var id = JSON.parse(localStorage.getItem('id') || '3');
+    (await this.pqrSv.getPqr(id)).subscribe((data) => (
+      this.pqr = data)
+    );
+    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
+    await new Promise(f => setTimeout(f, 1000));
+
+    //Llena los campos del formulario
+    this.myForm.patchValue({
+      pqrRadicado: this.pqr.pqrRadicado, 
+      pqrTipo: this.pqr.pqrTipo, 
+      pqrMedio: this.pqr.pqrMedio,
+      pqrAsunto: this.pqr.pqrAsunto
+    });
+    
+    //Llena los campos del formulario de fechas
+    this.todayWithPipe = this.pipe.transform(this.pqr.pqrFechaAdmision, 'yyyy-MM-dd');
+    this.myForm.patchValue({ pqrFechaAdmision: this.todayWithPipe});
+
+    this.todayWithPipe = this.pipe.transform(this.pqr.pqrFechaVencimiento, 'yyyy-MM-dd');
+    this.myForm.patchValue({ pqrFechaVencimiento: this.todayWithPipe });
+    
+    //Llena los campos de peticionario
+    if (this.pqr.petId.petTipo != null){
+      this.myForm.patchValue({
+        petTipo: this.pqr.petId.petTipo,
+        petNombre: this.pqr.petId.petNombre,
+        petDireccion: this.pqr.petId.petDireccion,
+        petTelefono: this.pqr.petId.petTelefono,
+        petCorreo: this.pqr.petId.petCorreo
+      });
+    } else {
+      this.myForm.patchValue({
+        petTipo: 'ANONIMO'
+      });
+    }
+
   }
 
   //Accesor para los campos del formulario
@@ -89,7 +123,7 @@ export class EditarComponent {
 
     this.llenarEntidad();
 
-    if(!this.pqrSv.addPqr(this.pqr)){
+    if(!this.pqrSv.UpdatePqr(this.pqr)){
       alert("No se pudo agregar la peticion")
     } else {
       alert("Peticion agregada correctamente")

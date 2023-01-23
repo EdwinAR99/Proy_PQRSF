@@ -11,7 +11,7 @@ import { ConnectableObservable } from 'rxjs';
 })
 export class PqrsfService {
   private urlAPI = 'http://localhost:8080';
-  private result: boolean = false;//false;
+  private result: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,14 +25,13 @@ export class PqrsfService {
   }
   async addPqr(pqr: PQRSF): Promise<boolean>{
     const body = JSON.stringify(pqr);
-    console.log(body);
-    console.log(pqr.pqrAnexo);
     await this.httpClient.post<boolean>(this.urlAPI + "/pqrsf/addPqrsf", body, this.httpHeader).subscribe((res)=>{
       this.result = res;
       console.log("Body " + body);
       console.log("Resultado " + this.result);
       console.log("Res " + res);
     });
+    await new Promise(f => setTimeout(f, 1000));
     return this.result;
   }
   async getTraslado(id:number){
@@ -52,6 +51,7 @@ export class PqrsfService {
       console.log("Resultado " + this.result);
       console.log("Res " + res);
     });
+    await new Promise(f => setTimeout(f, 1000));
     return this.result;
   }
 
