@@ -54,14 +54,14 @@ public class PQRSF {
 	
 	@Lob
 	@Column(name="pqrAnexo")
-	private byte[] pqrAnexo;
+	private String pqrAnexo;
 
 	//Constructors
 	public PQRSF() {
 	}
 	
 	public PQRSF(int pqrId, String pqrRadicado, String pqrTipo, Peticionario petId, Date pqrFechaAdmision,
-			Date pqrFechaVencimiento, String pqrAsunto, String pqrMedio, String pqrEstado, byte[] pqrAnexo) {
+			Date pqrFechaVencimiento, String pqrAsunto, String pqrMedio, String pqrEstado, String pqrAnexo) {
 		this.pqrId = pqrId;
 		this.pqrRadicado = pqrRadicado;
 		this.pqrTipo = pqrTipo;
@@ -155,11 +155,11 @@ public class PQRSF {
 		this.traId = traId;
 	}
 	
-	public byte[] getPqrAnexo() {
+	public String getPqrAnexo() {
 		return pqrAnexo;
 	}
 
-	public void setPqrAnexo(byte[] pqrAnexo) {
+	public void setPqrAnexo(String pqrAnexo) {
 		this.pqrAnexo = pqrAnexo;
 	}
 
@@ -168,7 +168,9 @@ public class PQRSF {
 		return "PQRSF [pqrId=" + pqrId + ", pqrRadicado=" + pqrRadicado + ", pqrTipo=" + pqrTipo + ", petId=" + petId
 				+ ", pqrFechaAdmision=" + pqrFechaAdmision + ", pqrFechaVencimiento=" + pqrFechaVencimiento
 				+ ", pqrAsunto=" + pqrAsunto + ", pqrMedio=" + pqrMedio + ", pqrEstado=" + pqrEstado + ", traId="
-				+ traId + "]";
-	}	
+				+ traId + ", pqrAnexo=" + pqrAnexo + "]";
+	}
+
+	
 	
 }

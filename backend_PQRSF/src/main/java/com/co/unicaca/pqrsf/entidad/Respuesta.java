@@ -28,7 +28,10 @@ public class Respuesta {
 	
 	@Lob
     @Column(name="resOficioR")
-    private byte[] resOficioR;
+    private String resOficioR;
+	
+	@Column(name="resAnexoR")
+	private String resAnexoR;
     
     @Column(name="resFechaRespuesta")
     private Date resFechaRespuesta;
@@ -39,10 +42,11 @@ public class Respuesta {
     public Respuesta() {
     }
 
-    public Respuesta(int resId,PQRSF pqrId, byte[] resOficioR, Date resFechaRespuesta, int resTiempoRespuesta) {
+    public Respuesta(int resId,PQRSF pqrId, String resOficioR, String resAnexoR, Date resFechaRespuesta, int resTiempoRespuesta) {
         this.resId = resId;
         this.pqrId = pqrId;
         this.resOficioR = resOficioR;
+        this.resAnexoR = resAnexoR;
         this.resFechaRespuesta = resFechaRespuesta;
         this.resTiempoRespuesta = resTiempoRespuesta;
     }
@@ -63,12 +67,20 @@ public class Respuesta {
 		this.pqrId = pqrId;
 	}
 
-	public byte[] getResOficioR() {
+	public String getResOficioR() {
 		return resOficioR;
 	}
 
-	public void setResOficioR(byte[] resOficioR) {
+	public void setResOficioR(String resOficioR) {
 		this.resOficioR = resOficioR;
+	}
+
+	public String getResAnexoR() {
+		return resAnexoR;
+	}
+
+	public void setResAnexoR(String resAnexoR) {
+		this.resAnexoR = resAnexoR;
 	}
 
 	public Date getResFechaRespuesta() {
@@ -89,9 +101,12 @@ public class Respuesta {
 
 	@Override
 	public String toString() {
-		return "Respuesta [resId=" + resId + ", pqrId=" + pqrId + ", resOficioR=" + Arrays.toString(resOficioR)
-				+ ", resFechaRespuesta=" + resFechaRespuesta + ", resTiempoRespuesta=" + resTiempoRespuesta + "]";
+		return "Respuesta [resId=" + resId + ", pqrId=" + pqrId + ", resOficioR=" + resOficioR + ", resAnexoR="
+				+ resAnexoR + ", resFechaRespuesta=" + resFechaRespuesta + ", resTiempoRespuesta=" + resTiempoRespuesta
+				+ "]";
 	}
+
+	
     
     
 	

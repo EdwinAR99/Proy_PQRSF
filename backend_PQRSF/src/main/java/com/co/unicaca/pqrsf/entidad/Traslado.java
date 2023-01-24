@@ -39,18 +39,18 @@ public class Traslado {
     
     @Lob
     @Column(name="traOficio")
-    private byte[] traOficio;
+    private String traAnexo;
     
 	public Traslado() {
 	}
 
-	public Traslado(int traId, PQRSF pqrId, String traNombre, String traDependencia, String traOficioNum, byte[] traOficio) {
+	public Traslado(int traId, PQRSF pqrId, String traNombre, String traDependencia, String traOficioNum, String traAnexo) {
 		this.traId = traId;
 		this.pqrId = pqrId;
 		this.traNombre = traNombre;
 		this.traDependencia = traDependencia;
 		this.traOficioNum = traOficioNum;
-		this.traOficio = traOficio;
+		this.traAnexo = traAnexo;
 	}
 
 	public int getTraId() {
@@ -93,19 +93,20 @@ public class Traslado {
 		this.traOficioNum = traOficioNum;
 	}
 
-	public byte[] getTraOficio() {
-		return traOficio;
+	public String getTraAnexo() {
+		return traAnexo;
 	}
 
-	public void setTraOficio(byte[] traOficio) {
-		this.traOficio = traOficio;
+	public void setTraOficio(String traAnexo) {
+		this.traAnexo = traAnexo;
 	}
 
 	@Override
 	public String toString() {
 		return "Traslado [traId=" + traId + ", pqrId=" + pqrId + ", traNombre=" + traNombre + ", traDependencia="
-				+ traDependencia + ", traOficioNum=" + traOficioNum + ", traOficio=" + Arrays.toString(traOficio)
-				+ "]";
+				+ traDependencia + ", traOficioNum=" + traOficioNum + ", traAnexo=" + traAnexo + "]";
 	}
+
+	
     
 }
