@@ -123,7 +123,7 @@ export class EditarComponent {
 
     this.llenarEntidad();
 
-    if(!this.pqrSv.UpdatePqr(this.pqr)){
+    if(!this.pqrSv.updatePqr(this.pqr)){
       alert("No se pudo agregar la peticion")
     } else {
       alert("Peticion agregada correctamente")

@@ -11,7 +11,6 @@
   <table class="table">
     <thead class="table-light">
       <tr>
-        <th scope="col">Item</th>
         <th scope="col">N°de Radicado</th>
         <th scope="col">Fecha Recepcion</th>
         <th scope="col">Fecha de Vencimiento</th>
@@ -30,7 +29,6 @@
     <tbody class="table-group-divider">
       <tr *ngFor="let PQRSF of pqrsf | filter:filterPost" class="table-light" >
         <th scope="row">1</th>
-        <td>{{PQRSF.pqrId}}</td>
         <td>{{PQRSF.pqrFechaAdmision}}</td>
         <td>{{PQRSF.pqrFechaVencimiento}}</td>
         <td>{{PQRSF.petId.petTipo}}</td>

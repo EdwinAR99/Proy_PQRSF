@@ -48,7 +48,7 @@ public class ResServicioImpl implements ResServicio {
 		if (aux != null) {
 			aux.setResId(resId);
 			aux.setPqrId(res.getPqrId());
-			aux.setResOficioR(res.getResOficioR());
+			aux.setResOficio(res.getResOficio());
 			aux.setResFechaRespuesta(res.getResFechaRespuesta());
 			aux.setResTiempoRespuesta(res.getResTiempoRespuesta());
 			resRepositorio.save(aux);

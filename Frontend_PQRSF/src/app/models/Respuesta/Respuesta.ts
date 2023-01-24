@@ -1,10 +1,12 @@
+import { PQRSF } from "../PQRSF/pqrsf";
+
 export class Respuesta {
     
-    resId!: number | null;
-    resFechaRespuesta!: string;
-    resOficioR!: string;
+    resId!: number ;
+    resFechaRespuesta!: string | null;
+    resOficio!: string;
     resAnexo!: string;
-    resTiempoRespuesta!: string;
-    pqrId!: number | null;
+    resTiempoRespuesta!: number;
+    pqrId!: PQRSF;
 
 }

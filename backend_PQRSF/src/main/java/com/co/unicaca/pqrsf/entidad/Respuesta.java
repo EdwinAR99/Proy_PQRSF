@@ -26,12 +26,11 @@ public class Respuesta {
 	@JoinColumn(name="pqrId")
 	private PQRSF pqrId;
 	
-	@Lob
-    @Column(name="resOficioR")
-    private String resOficioR;
+    @Column(name="resOficio")
+    private String resOficio;
 	
-	@Column(name="resAnexoR")
-	private String resAnexoR;
+	@Column(name="resAnexo")
+	private String resAnexo;
     
     @Column(name="resFechaRespuesta")
     private Date resFechaRespuesta;
@@ -42,11 +41,11 @@ public class Respuesta {
     public Respuesta() {
     }
 
-    public Respuesta(int resId,PQRSF pqrId, String resOficioR, String resAnexoR, Date resFechaRespuesta, int resTiempoRespuesta) {
+    public Respuesta(int resId,PQRSF pqrId, String resOficio, String resAnexo, Date resFechaRespuesta, int resTiempoRespuesta) {
         this.resId = resId;
         this.pqrId = pqrId;
-        this.resOficioR = resOficioR;
-        this.resAnexoR = resAnexoR;
+        this.resOficio = resOficio;
+        this.resAnexo = resAnexo;
         this.resFechaRespuesta = resFechaRespuesta;
         this.resTiempoRespuesta = resTiempoRespuesta;
     }
@@ -67,20 +66,20 @@ public class Respuesta {
 		this.pqrId = pqrId;
 	}
 
-	public String getResOficioR() {
-		return resOficioR;
+	public String getResOficio() {
+		return resOficio;
 	}
 
-	public void setResOficioR(String resOficioR) {
-		this.resOficioR = resOficioR;
+	public void setResOficio(String resOficio) {
+		this.resOficio = resOficio;
 	}
 
-	public String getResAnexoR() {
-		return resAnexoR;
+	public String getResAnexo() {
+		return resAnexo;
 	}
 
-	public void setResAnexoR(String resAnexoR) {
-		this.resAnexoR = resAnexoR;
+	public void setResAnexo(String resAnexo) {
+		this.resAnexo = resAnexo;
 	}
 
 	public Date getResFechaRespuesta() {
@@ -101,8 +100,8 @@ public class Respuesta {
 
 	@Override
 	public String toString() {
-		return "Respuesta [resId=" + resId + ", pqrId=" + pqrId + ", resOficioR=" + resOficioR + ", resAnexoR="
-				+ resAnexoR + ", resFechaRespuesta=" + resFechaRespuesta + ", resTiempoRespuesta=" + resTiempoRespuesta
+		return "Respuesta [resId=" + resId + ", pqrId=" + pqrId + ", resOficio=" + resOficio + ", resAnexo="
+				+ resAnexo + ", resFechaRespuesta=" + resFechaRespuesta + ", resTiempoRespuesta=" + resTiempoRespuesta
 				+ "]";
 	}
 

@@ -51,7 +51,7 @@ public class PqrServicioImpl implements PqrServicio {
 			aux.setPqrMedio(pqr.getPqrMedio());
 			aux.setPqrEstado(pqr.getPqrEstado());
 			aux.setTraId(pqr.getTraId());
-			pqrRepositorio.save(aux);
+			pqrRepositorio.updatePqr(aux.getPqrFechaVencimiento(), aux.getPqrAsunto(), aux.getPqrMedio(), aux.getPqrEstado());
 			return true;
 		} else {
 			return true;

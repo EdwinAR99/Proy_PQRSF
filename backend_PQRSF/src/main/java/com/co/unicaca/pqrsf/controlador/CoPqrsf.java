@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.co.unicaca.pqrsf.entidad.PQRSF;
+import com.co.unicaca.pqrsf.entidad.Traslado;
 import com.co.unicaca.pqrsf.servicio.PetServicio;
 import com.co.unicaca.pqrsf.servicio.PqrServicio;
 
@@ -50,6 +51,9 @@ public class CoPqrsf {
 	
 	@PutMapping(value="/updatePqrsf/{pqrId}")
 	public ResponseEntity update(@PathVariable(value = "pqrId") Integer pqrId,@RequestBody PQRSF pqr) {
+		for (Traslado tra : pqr.getTraId()) {
+			tra.setPqrId(pqr);
+		}
 		return new ResponseEntity(pqrServicio.editPqr(pqrId, pqr), HttpStatus.OK);
 	}
 	

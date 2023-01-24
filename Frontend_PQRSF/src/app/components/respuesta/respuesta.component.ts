@@ -79,12 +79,31 @@ export class RespuestaComponent implements OnInit {
     this.myForm.patchValue({ resTiempoRespuesta: this.tiempoRes + ' dias' });
   }
 
-  public submitFormulario() {
+  public async submitFormulario() {
+    if(this.myForm.invalid){
+      Object.values(this.myForm.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
+      return;
+    }
 
+    this.llenarEntidad();
+
+    if(!this.pqrSv.addRes(this.res)){
+      alert("No se pudo agregar la respuesta");
+    } else {
+      this.pqr.pqrEstado = 'RESPONDIDA';
+      this.pqrSv.updatePqr(this.pqr);
+      console.log(this.pqr.traId)
+      alert("Respuesta agregada correctamente");
+    }
   }
 
   public llenarEntidad() {
-
+    this.res.pqrId = this.pqr;
+    this.res.resFechaRespuesta = this.pipe.transform(this.myForm.value.resFechaRespuesta, 'yyyy-MM-dd');
+    this.res.resTiempoRespuesta = this.tiempoRes;
+    this.res.resOficio = this.myForm.value.resOficioRespuesta;
   }
 
 }

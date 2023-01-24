@@ -52,7 +52,6 @@ public class PQRSF {
 	@JoinColumn(name="traId")
 	private List<Traslado> traId;
 	
-	@Lob
 	@Column(name="pqrAnexo")
 	private String pqrAnexo;
 

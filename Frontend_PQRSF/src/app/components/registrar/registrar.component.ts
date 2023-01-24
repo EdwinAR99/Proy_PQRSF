@@ -127,9 +127,9 @@ export class RegistrarComponent implements OnInit{
     this.llenarEntidad();
 
     if(!this.pqrSv.addPqr(this.pqr)){
-      alert("No se pudo agregar la peticion")
+      alert("No se pudo agregar la peticion");
     } else {
-      alert("Peticion agregada correctamente")
+      alert("Peticion agregada correctamente");
     }
 
   }
@@ -200,8 +200,5 @@ export class RegistrarComponent implements OnInit{
       return null;
     });
 
-}
-function archivoUp() {
-  throw new Error('Function not implemented.');
 }
 

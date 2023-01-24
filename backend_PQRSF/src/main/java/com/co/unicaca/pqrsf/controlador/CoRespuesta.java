@@ -30,7 +30,7 @@ public class CoRespuesta {
 	}
 	
 	@GetMapping(value="/{pqrId}/listRespuesta")
-	public ResponseEntity getResByPqr(@PathVariable(value = "resId") Integer pqrId) {
+	public ResponseEntity getResByPqr(@PathVariable(value = "pqrId") Integer pqrId) {
 		return new ResponseEntity(resServicio.getResByPqr(pqrId), HttpStatus.OK);
 	}
 	
@@ -41,6 +41,7 @@ public class CoRespuesta {
 	
 	@PostMapping(value="/addRespuesta")
 	public ResponseEntity add(@RequestBody Respuesta res) {
+		System.out.printf("Respuesta " + res.getResId());
 		return new ResponseEntity(resServicio.addRes(res), HttpStatus.OK);
 	}
 	

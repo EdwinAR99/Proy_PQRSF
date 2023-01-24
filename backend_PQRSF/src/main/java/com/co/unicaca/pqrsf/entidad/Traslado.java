@@ -36,8 +36,7 @@ public class Traslado {
     
     @Column(name="traOficioNum")
     private String traOficioNum;
-    
-    @Lob
+
     @Column(name="traOficio")
     private String traAnexo;
     
