@@ -7,6 +7,6 @@ export class Traslado {
     traNombre!: string;
     traDependencia!: string;
     traOficioNum!: string;
-    traOficio!: string;
+    traAnexo!: string;
 
 }

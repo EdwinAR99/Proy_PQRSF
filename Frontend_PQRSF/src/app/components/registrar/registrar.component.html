@@ -24,7 +24,7 @@
                     class="form-control d-sm-flex justify-content-center" type="text" required=""
                     placeholder="Número de Radicado" name="pqrRadicado">
                 <div id="validationFeeback" class="invalid-feedback">
-                    Número de rardicado obligatorio.
+                    Número de radicado obligatorio.
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
             <label for="exampleFormControlInput1" class="form-label"
                 style="color: rgb(249, 247, 247); margin-top: 0;">Fecha de Admision</label>
             <input formControlName="pqrFechaAdmision" class="bg-light form-control d-md-flex align-items-md-start"
-                id="pqrFecha" type="date" required="">
+                id="pqrFecha" type="date" required="" (change)="SendDataonChange($event)">
 
             <label for="exampleFormControlInput1" class="form-label"
                 style="color: rgb(249, 247, 247); margin-top: 0;">Fecha de Vencimiento</label>

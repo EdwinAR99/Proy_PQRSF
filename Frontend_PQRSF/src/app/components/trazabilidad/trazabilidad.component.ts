@@ -28,8 +28,7 @@ export class TrazabilidadComponent implements OnInit {
   tiempoRes: number | undefined;
   tiempoTrascurrido: number | undefined;
   tiempoTotal: number | undefined;
-  tiempoPorcentaje:number| undefined;
-  varPorcentaje:String | undefined;
+  tiempoPorcentaje!: number;
 
 
   traza: Traslado[] = [];
@@ -45,6 +44,7 @@ export class TrazabilidadComponent implements OnInit {
   fecha!: string;
 
   constructor(private service: PqrsfService, private router: Router) {}
+  
   activarEditar(){
     this.option = 0;
   }
@@ -54,6 +54,7 @@ export class TrazabilidadComponent implements OnInit {
   ngOnInit(): void{
     this.getSeguimiento();
   }
+
   async getSeguimiento() {
     var id = JSON.parse(localStorage.getItem('id') || '3');
     (await this.service.getTraslado(id)).subscribe(
@@ -84,10 +85,10 @@ export class TrazabilidadComponent implements OnInit {
     this.tiempoTotal = (fechaVencimiento.getTime() - fechaAdmision.getTime())/86400000;
 
     if (this.tiempoRes < 0){
-      this.tiempoTotal = 0;
+      this.tiempoRes = 0;
       this.tiempoPorcentaje = 100;
     } else {
-      this.tiempoPorcentaje=Math.round((this.tiempoTrascurrido*100)/this.tiempoTotal);
+      this.tiempoPorcentaje= Math.round((this.tiempoTrascurrido*100)/this.tiempoTotal);
     }
 
     this.pqid = id;

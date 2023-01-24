@@ -14,6 +14,6 @@ export class PQRSF {
     pqrMedio!: string;
     pqrEstado!: string;
     traId!: Traslado[];
-    pqrAnexo!:File;
+    pqrAnexo!: string;
 
 }

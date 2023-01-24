@@ -1,22 +1,22 @@
 <h4 *ngFor="let Traslado of traza " style="margin: 5px;color: rgb(255, 255, 255); margin: 2%;">Numero de Radicado :
   {{pqid}}</h4>
 
+  
+
+
 <div class="container">
   <div class="skills">
     <div class="progress-bar">
       <div class="progress-bar--gradient">
-        <div class="progress-bar--progress">
+        <div class="progress-bar--progress" style="--p: {{ tiempoPorcentaje }}%">
           <span class="progress-bar--progress-value"
             matTooltip="numero de oficio {{traza[0].traOficioNum}} , Trasladado a {{traza[0].traNombre}} , Dependencia {{traza[0].traDependencia}} "
-            matTooltipClass="example-tooltip-uppercase" aria-label="Button that shows a red tooltip"
-            [style.--porcentaje]="tiempoPorcentaje">
+            matTooltipClass="example-tooltip-uppercase" aria-label="Button that shows a red tooltip">
             {{tiempoPorcentaje}} %
           </span>
         </div>
         <div class="progress-bar--not-progress"></div>
-
       </div>
-
     </div>
     <div>
       <h4 style="margin: 5px;color: rgb(255, 255, 255);float: right;">Tiempo restante: {{tiempoRes}} dias</h4>

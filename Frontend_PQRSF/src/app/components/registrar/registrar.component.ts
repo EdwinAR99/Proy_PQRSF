@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -77,19 +78,41 @@ export class RegistrarComponent implements OnInit{
   }
 
   SendDataonChange(event: any) {
-    if (event.target.value == "PETICION" || event.target.value == "QUEJA" || event.target.value == "RECLAMO" || event.target.value == "SUGERENCIA"){
+    if (this.myForm.value.pqrTipo == "PETICION" || this.myForm.value.pqrTipo == "QUEJA" || this.myForm.value.pqrTipo == "RECLAMO" || this.myForm.value.pqrTipo == "SUGERENCIA"){
+      this.today = new Date(this.myForm.value.pqrFechaAdmision);
       this.today.setDate(this.today.getDate() + 15);
       this.myForm.patchValue({ pqrFechaVencimiento: this.pipe.transform(this.today, 'yyyy-MM-dd')});
       this.today = new Date();
-    } else if (event.target.value == "INFORMACION"){
+    } else if (this.myForm.value.pqrTipo == "INFORMACION"){
+      this.today = new Date(this.myForm.value.pqrFechaAdmision);
       this.today.setDate(this.today.getDate() + 10);
       this.myForm.patchValue({ pqrFechaVencimiento: this.pipe.transform(this.today, 'yyyy-MM-dd')});
       this.today = new Date();
-    } else if (event.target.value == "CONSULTA" || event.target.value == "FELICITACIÓN"){
+    } else if (this.myForm.value.pqrTipo == "CONSULTA" || this.myForm.value.pqrTipo == "FELICITACIÓN"){
+      this.today = new Date(this.myForm.value.pqrFechaAdmision);
       this.today.setDate(this.today.getDate() + 30);
       this.myForm.patchValue({ pqrFechaVencimiento: this.pipe.transform(this.today, 'yyyy-MM-dd')});
       this.today = new Date();
-    } 
+    }
+  }
+
+  SendDate(event: any){
+    if (this.myForm.value.pqrTipo == "PETICION" || this.myForm.value.pqrTipo == "QUEJA" || this.myForm.value.pqrTipo == "RECLAMO" || this.myForm.value.pqrTipo == "SUGERENCIA"){
+      this.today = new Date(this.myForm.value.pqrFechaAdmision);
+      this.today.setDate(this.today.getDate() + 15);
+      this.myForm.patchValue({ pqrFechaVencimiento: this.pipe.transform(this.today, 'yyyy-MM-dd')});
+      this.today = new Date();
+    } else if (this.myForm.value.pqrTipo == "INFORMACION"){
+      this.today = new Date(this.myForm.value.pqrFechaAdmision);
+      this.today.setDate(this.today.getDate() + 10);
+      this.myForm.patchValue({ pqrFechaVencimiento: this.pipe.transform(this.today, 'yyyy-MM-dd')});
+      this.today = new Date();
+    } else if (this.myForm.value.pqrTipo == "CONSULTA" || this.myForm.value.pqrTipo == "FELICITACIÓN"){
+      this.today = new Date(this.myForm.value.pqrFechaAdmision);
+      this.today.setDate(this.today.getDate() + 30);
+      this.myForm.patchValue({ pqrFechaVencimiento: this.pipe.transform(this.today, 'yyyy-MM-dd')});
+      this.today = new Date();
+    }
   }
 
   public submitFormulario(){
@@ -121,8 +144,8 @@ export class RegistrarComponent implements OnInit{
     this.tras.traNombre = this.myForm.value.traNombre;
     this.tras.traDependencia = this.myForm.value.traDependencia;
 
-    //archivo adjunto(pdf)
-    this.pqr.pqrAnexo= this.archivoadjunto;
+    //corregir con la url
+    //this.pqr.pqrAnexo = this.archivoadjunto;
     
     this.pqr.traId = [this.tras];
     this.pqr.pqrMedio = this.myForm.value.pqrMedio;
