@@ -51,7 +51,7 @@ public class TraServicioImpl implements TraServicio {
 			aux.setTraNombre(tra.getTraNombre());
 			aux.setTraDependencia(tra.getTraDependencia());
 			aux.setTraOficioNum(tra.getTraOficioNum());
-			aux.setTraOficio(tra.getTraOficio());
+			aux.setTraOficio(tra.getTraAnexo());
 			traRepositorio.save(aux);
 			return true;
 		} else {
