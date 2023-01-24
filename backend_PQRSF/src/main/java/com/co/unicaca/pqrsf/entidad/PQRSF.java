@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -50,13 +51,17 @@ public class PQRSF {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="traId")
 	private List<Traslado> traId;
+	
+	@Lob
+	@Column(name="pqrAnexo")
+	private byte[] pqrAnexo;
 
 	//Constructors
 	public PQRSF() {
 	}
 	
 	public PQRSF(int pqrId, String pqrRadicado, String pqrTipo, Peticionario petId, Date pqrFechaAdmision,
-			Date pqrFechaVencimiento, String pqrAsunto, String pqrMedio, String pqrEstado) {
+			Date pqrFechaVencimiento, String pqrAsunto, String pqrMedio, String pqrEstado, byte[] pqrAnexo) {
 		this.pqrId = pqrId;
 		this.pqrRadicado = pqrRadicado;
 		this.pqrTipo = pqrTipo;
@@ -66,6 +71,7 @@ public class PQRSF {
 		this.pqrAsunto = pqrAsunto;
 		this.pqrMedio = pqrMedio;
 		this.pqrEstado = pqrEstado;
+		this.pqrAnexo = pqrAnexo;
 	}
 
 	//Getter and Setters
@@ -149,6 +155,14 @@ public class PQRSF {
 		this.traId = traId;
 	}
 	
+	public byte[] getPqrAnexo() {
+		return pqrAnexo;
+	}
+
+	public void setPqrAnexo(byte[] pqrAnexo) {
+		this.pqrAnexo = pqrAnexo;
+	}
+
 	@Override
 	public String toString() {
 		return "PQRSF [pqrId=" + pqrId + ", pqrRadicado=" + pqrRadicado + ", pqrTipo=" + pqrTipo + ", petId=" + petId
