@@ -26,10 +26,9 @@
 </div>
 <div style="margin: 2%;">
   <div style="margin-left: 1%;">
-    <button type="button" class="btn btn-outline-light" (click)=activarEditar()
-    >Nuevo seguimiento</button>
-    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;"
-    >Agregar Respuesta</button>
+    <button type="button" class="btn btn-outline-light" (click)=activarEditar()>Nuevo seguimiento</button>
+    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;">Agregar
+      Respuesta</button>
   </div>
 </div>
 
@@ -60,7 +59,7 @@
 
   </table>
 </div>
-<div class="table-responsive" style="margin: 4%;">
+<div class="table-responsive" style="margin: 4%;" *ngIf="pqrRes.resId != null">
   <table class="table">
     <thead>
       <tr class="table-light">
@@ -70,9 +69,11 @@
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      <tr  class="table-light">
+      <tr class="table-light">
         <td>{{pqrRes.resFechaRespuesta}}</td>
         <td>{{pqrRes.resOficioR}}</td>
         <td>{{pqrRes.resTiempoRespuesta}}</td>
-
+      </tr>
+    </tbody>
   </table>
+</div>

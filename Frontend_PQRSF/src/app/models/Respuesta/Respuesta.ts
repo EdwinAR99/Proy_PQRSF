@@ -4,6 +4,6 @@ export class Respuesta {
     resFechaRespuesta!: string;
     resOficioR!: string;
     resTiempoRespuesta!: string;
-    petId!: number | null;
+    pqrId!: number | null;
 
 }
