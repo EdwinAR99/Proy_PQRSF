@@ -27,8 +27,10 @@ export class TrazabilidadComponent implements OnInit {
   //Tiempo restante en dias
   tiempoRes: number | undefined;
   tiempoTrascurrido: number | undefined;
+  tiempoTotal: number | undefined;
   tiempoPorcentaje:number| undefined;
   varPorcentaje:String | undefined;
+
   traza: Traslado[] = [];
   resid:number | undefined;
   pqid: number | undefined;
@@ -80,7 +82,17 @@ export class TrazabilidadComponent implements OnInit {
     this.fecha = moment(this.pqrsf.pqrFechaAdmision).format('yyyy-MM-DD');
     let fechaAdmision: Date = new Date(this.fecha);
     this.tiempoTrascurrido = (fechaActual.getTime() - fechaAdmision.getTime())/86400000;
-    this.tiempoPorcentaje=Math.round((this.tiempoTrascurrido*100)/15);
+
+    //Algoritmo de tiempo total
+    this.tiempoTotal = (fechaVencimiento.getTime() - fechaAdmision.getTime())/86400000;
+
+    if (this.tiempoRes < 0){
+      this.tiempoRes = 0;
+      this.tiempoPorcentaje = 100;
+    } else {
+      this.tiempoPorcentaje=Math.round((this.tiempoTrascurrido*100)/this.tiempoTotal);
+    }
+    
     this.pqid = id;
   }
 }

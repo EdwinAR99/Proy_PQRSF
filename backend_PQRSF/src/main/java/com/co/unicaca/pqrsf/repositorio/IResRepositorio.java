@@ -12,4 +12,7 @@ public interface IResRepositorio extends JpaRepository<Respuesta, Integer>{
 	@Query(value = "select * from respuesta where resId=?1",nativeQuery = true)
     Respuesta findByResId(int resId);
 	
+	@Query(value = "select * from respuesta where pqrId=?1",nativeQuery = true)
+	Respuesta findByPqrId(int pqrId);
+	
 }

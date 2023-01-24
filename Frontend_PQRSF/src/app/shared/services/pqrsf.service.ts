@@ -38,7 +38,7 @@ export class PqrsfService {
     return await this.httpClient.get<Traslado[]>(this.urlAPI + "/traslado/"+id+"/listTraslado");
     
   }async getRespuesta(id:number){
-    return await this.httpClient.get<Respuesta>(this.urlAPI + "/respuesta/listRespuesta/"+id);
+    return await this.httpClient.get<Respuesta>(this.urlAPI + "/respuesta/" + id + "/listRespuesta");
   }
   async getPqr(id:number){
     return await this.httpClient.get<PQRSF>(this.urlAPI + "/pqrsf/listPqrsf/"+id);

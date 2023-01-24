@@ -9,6 +9,8 @@ public interface ResServicio {
 
 	public List<Respuesta> listRes();
 	
+	public Respuesta getResByPqr(int pqrId);
+	
 	public Respuesta getResById(int resId);
 	
 	public Boolean addRes(Respuesta res);

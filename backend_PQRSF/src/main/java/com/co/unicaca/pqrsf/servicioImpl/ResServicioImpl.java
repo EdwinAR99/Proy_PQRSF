@@ -21,6 +21,11 @@ public class ResServicioImpl implements ResServicio {
 	public List<Respuesta> listRes() {
 		return resRepositorio.findAll();
 	}
+	
+	@Override
+	public Respuesta getResByPqr(int pqrId) {
+		return resRepositorio.findByPqrId(pqrId);
+	}
 
 	@Override
 	public Respuesta getResById(int resId) {

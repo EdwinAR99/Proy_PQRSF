@@ -56,7 +56,7 @@
 
   </table>
 </div>
-<div class="table-responsive" style="margin: 4%;">
+<div class="table-responsive" style="margin: 4%;" *ngIf="pqrRes.resId != null">
   <table class="table">
     <thead>
       <tr class="table-light">
@@ -70,5 +70,6 @@
         <td>{{pqrRes.resFechaRespuesta}}</td>
         <td>{{pqrRes.resOficioR}}</td>
         <td>{{pqrRes.resTiempoRespuesta}}</td>
-
+      </tr>
   </table>
+</div>

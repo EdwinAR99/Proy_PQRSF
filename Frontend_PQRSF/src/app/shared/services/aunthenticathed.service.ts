@@ -8,7 +8,7 @@ import { Usuario } from 'src/app/models/Usuario/usuario';
 export class AunthenticathedService {
 
   private urlAPI = 'http://localhost:8080';
-  private ingresar: boolean = true;
+  private ingresar: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
 
