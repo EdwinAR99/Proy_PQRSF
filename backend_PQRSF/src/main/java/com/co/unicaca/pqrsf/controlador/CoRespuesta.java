@@ -29,6 +29,11 @@ public class CoRespuesta {
 		return new ResponseEntity(resServicio.listRes(), HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/{pqrId}/listRespuesta")
+	public ResponseEntity getResByPqr(@PathVariable(value = "resId") Integer pqrId) {
+		return new ResponseEntity(resServicio.getResByPqr(pqrId), HttpStatus.OK);
+	}
+	
 	@GetMapping(value="/listRespuesta/{resId}")
 	public ResponseEntity getRes(@PathVariable(value = "resId") Integer resId) {
 		return new ResponseEntity(resServicio.getResById(resId), HttpStatus.OK);
