@@ -1,23 +1,32 @@
 <div class="content">
-    <form class="row">
+    <form class="row" [formGroup]="myForm" (ngSubmit)="submitFormulario()">
         <div class="col-md-2">
             <label class="form-label">N° oficio</label><label class="form-label" style="color: red;">(*)</label>
-            <input type="text" class="form-control" id="pqrId" required>
+            <input formControlName="traOficioNum" type="text" class="form-control" id="pqrId" [class.is-invalid]="f.traOficioNum.errors && f.traOficioNum.touched">
+            <div id="validationFeeback" class="invalid-feedback">
+                Número del oficio obligatorio.
+            </div>
         </div>
         <div class="col-md-2">
             <label class="form-label">Traslado</label>
-            <input type="text" class="form-control" id="pqrId">
+            <input formControlName="traNombre"type="text" class="form-control" id="pqrId" [class.is-invalid]="f.traNombre.errors && f.traNombre.touched">
+            <div id="validationFeeback" class="invalid-feedback">
+                Nombre del traslado obligatorio.
+            </div>
         </div>
         <div class="col-md-2">
             <label class="form-label">Dependencia</label>
-            <input type="text" class="form-control" id="pqrId">
+            <input formControlName="traDependencia" type="text" class="form-control" id="pqrId" [class.is-invalid]="f.traDependencia.errors && f.traDependencia.touched">
+            <div id="validationFeeback" class="invalid-feedback">
+                Nombre del departamento obligatorio.
+            </div>
         </div>
         <div class="col-md-4">
             <label class="form-label">Oficio de Traslado</label>
             <input type="file" class="form-control" id="pqrId">
         </div>
         <div class="col-md-1" style="margin-top: 2%;">
-            <button type="button" class="btn btn-primary" [routerLink]="['/trazabilidad']"
+            <button type="submit" class="btn btn-primary" [routerLink]="['/trazabilidad']"
             routerLinkActive="router-link-active">Guardar</button>
         </div>
 

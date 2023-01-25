@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import { Respuesta } from 'src/app/models/Respuesta/Respuesta';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
+import { Traslado } from 'src/app/models/Traslado/traslado';
 import * as moment from 'moment';
 
 @Component({
@@ -16,6 +17,7 @@ export class RespuestaComponent implements OnInit {
   myForm!: FormGroup;
   res: Respuesta = new Respuesta();
   pqr: PQRSF = new PQRSF();
+  traza: Traslado[] = [];
 
   tiempoRes!: number;
 
@@ -49,6 +51,9 @@ export class RespuestaComponent implements OnInit {
     (await this.pqrSv.getPqr(id)).subscribe((data) => (
       this.pqr = data)
     );
+    (await this.pqrSv.getTraslado(id)).subscribe((data) => {
+      this.traza = data;
+    })
     
     await new Promise(f => setTimeout(f, 1000));
 
@@ -100,6 +105,7 @@ export class RespuestaComponent implements OnInit {
   }
 
   public llenarEntidad() {
+    this.pqr.traId = this.traza;
     this.res.pqrId = this.pqr;
     this.res.resFechaRespuesta = this.pipe.transform(this.myForm.value.resFechaRespuesta, 'yyyy-MM-dd');
     this.res.resTiempoRespuesta = this.tiempoRes;

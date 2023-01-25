@@ -56,7 +56,9 @@ export class TrazabilidadComponent implements OnInit {
     var id = JSON.parse(localStorage.getItem('id') || '3');
     (await this.service.getPqr(id)).subscribe((data) => {
       this.pqrsf = data;
-      this.traza = this.pqrsf.traId;
+    });
+    (await this.service.getTraslado(id)).subscribe((data) => {
+      this.traza = data;
     });
     (await this.service.getRespuesta(id)).subscribe((data) => {
       if (data != null) {
@@ -77,19 +79,17 @@ export class TrazabilidadComponent implements OnInit {
     } else {
       this.fecha = moment(this.pqrRes.resFechaRespuesta).format('yyyy-MM-DD');
     }
+
     let fechaActual: Date = new Date(this.fecha);
-    this.tiempoRes =
-      (fechaVencimiento.getTime() - fechaActual.getTime()) / 86400000;
+    this.tiempoRes = (fechaVencimiento.getTime() - fechaActual.getTime()) / 86400000;
 
     //Algoritmo de tiempo transcurrido
     this.fecha = moment(this.pqrsf.pqrFechaAdmision).format('yyyy-MM-DD');
     let fechaAdmision: Date = new Date(this.fecha);
-    this.tiempoTrascurrido =
-      (fechaActual.getTime() - fechaAdmision.getTime()) / 86400000;
+    this.tiempoTrascurrido = (fechaActual.getTime() - fechaAdmision.getTime()) / 86400000;
 
     //Algoritmo de tiempo total
-    this.tiempoTotal =
-      (fechaVencimiento.getTime() - fechaAdmision.getTime()) / 86400000;
+    this.tiempoTotal = (fechaVencimiento.getTime() - fechaAdmision.getTime()) / 86400000;
 
     if (this.tiempoRes < 0) {
       this.tiempoRes = 0;
@@ -97,12 +97,13 @@ export class TrazabilidadComponent implements OnInit {
       if (this.pqrRes.resId == -1) {
         this.pqrsf.pqrEstado = 'VENCIDA';
         this.service.updatePqr(this.pqrsf);
-      } else {
-        this.tiempoPorcentaje = Math.round(
-          (this.tiempoTrascurrido * 100) / this.tiempoTotal
-        );
-      }
+      } 
     }
+    else {
+        this.tiempoPorcentaje = Math.round((this.tiempoTrascurrido * 100) / this.tiempoTotal);
+    }
+
+    console.log(this.traza)
   }
 }
 export class ButtonTypesExample {}

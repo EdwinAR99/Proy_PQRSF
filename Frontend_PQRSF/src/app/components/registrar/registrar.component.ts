@@ -7,6 +7,7 @@ import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import * as moment from 'moment';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -131,7 +132,6 @@ export class RegistrarComponent implements OnInit{
     } else {
       alert("Peticion agregada correctamente");
     }
-
   }
 
   public llenarEntidad(){

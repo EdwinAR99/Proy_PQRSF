@@ -55,6 +55,7 @@ export class PqrsfService {
   async addTra(tra: Traslado): Promise<boolean> {
     var result = false;
     const body = JSON.stringify(tra);
+    console.log(body)
     await this.httpClient.post<boolean>(this.urlAPI + "/traslado/addTraslado", body, this.httpHeader).subscribe((res)=>{
       result = res;
     });
