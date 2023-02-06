@@ -5,7 +5,6 @@ import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar',
@@ -25,7 +24,6 @@ export class EditarComponent {
   todayWithPipe!: string | null;
 
   constructor(
-    private toastr: ToastrService,
     private fb: FormBuilder,
     private pqrSv: PqrsfService
   ) { }
@@ -125,15 +123,10 @@ export class EditarComponent {
 
     this.llenarEntidad();
 
-<<<<<<< Updated upstream
-    if(!this.pqrSv.UpdatePqr(this.pqr)){
-      alert("No se pudo agregar la peticion")
-=======
     if(!this.pqrSv.updatePqr(this.pqr)){
-      this.toastr.error(`La PQRSF con numero de radicado ${this.pqr.pqrRadicado} No se actualizo Exitosamente`,'Actualizar');
->>>>>>> Stashed changes
+      alert("No se pudo agregar la peticion")
     } else {
-      this.toastr.success(`La PQRSF con numero de radicado ${this.pqr.pqrRadicado} se actualizo Exitosamente`,'Actualizar');
+      alert("Peticion agregada correctamente")
     }
 
   }

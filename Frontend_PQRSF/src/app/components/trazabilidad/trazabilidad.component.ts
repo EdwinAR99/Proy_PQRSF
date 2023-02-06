@@ -1,4 +1,4 @@
-import { Component, OnInit,Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,6 @@ import { isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { delay } from 'rxjs';
 import { MatHint } from '@angular/material/form-field';
 
-
 @Component({
   selector: 'app-trazabilidad',
   templateUrl: './trazabilidad.component.html',
@@ -28,72 +27,83 @@ export class TrazabilidadComponent implements OnInit {
   tiempoRes: number | undefined;
   tiempoTrascurrido: number | undefined;
   tiempoTotal: number | undefined;
-  tiempoPorcentaje:number| undefined;
-  varPorcentaje:String | undefined;
+  tiempoPorcentaje!: number;
 
   traza: Traslado[] = [];
-  resid:number | undefined;
-  pqid: number | undefined;
+  resid: number | undefined;
   pqrsf: PQRSF = new PQRSF();
-  pqrRes:Respuesta=new Respuesta();
-  option:number|undefined;
-  private mostrar: boolean = false;
-  @Output() opcion:number | undefined;
+  pqrRes: Respuesta = new Respuesta();
+  option: number | undefined;
+  @Output() opcion: number | undefined;
 
   //Fechas
   today: Date = new Date();
   fecha!: string;
 
   constructor(private service: PqrsfService, private router: Router) {}
-  activarEditar(){
-    if(this.option == 0){
-      this.option = 3;
-    }
+
+  activarEditar() {
     this.option = 0;
   }
-  activarRespuesta(){
+  activarRespuesta() {
     this.option = 1;
   }
-
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.getSeguimiento();
   }
+
   async getSeguimiento() {
     var id = JSON.parse(localStorage.getItem('id') || '3');
-    (await this.service.getTraslado(id)).subscribe(
-      (data) => (this.traza = data)
-    );
-    (await this.service.getPqr(id)).subscribe((data) => (
-      this.pqrsf = data)
-    );
-    (await this.service.getRespuesta(id)).subscribe((data) => (
-      this.pqrRes = data)
-    );
+    (await this.service.getPqr(id)).subscribe((data) => {
+      this.pqrsf = data;
+    });
+    (await this.service.getTraslado(id)).subscribe((data) => {
+      this.traza = data;
+    });
+    (await this.service.getRespuesta(id)).subscribe((data) => {
+      if (data != null) {
+        this.pqrRes = data;
+      } else {
+        this.pqrRes.resId = -1;
+      }
+    });
     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
-    await new Promise(f => setTimeout(f, 1000));
+    await new Promise((f) => setTimeout(f, 1000));
+
     //Algoritmo de tiempo restante
     this.fecha = moment(this.pqrsf.pqrFechaVencimiento).format('yyyy-MM-DD');
     let fechaVencimiento: Date = new Date(this.fecha);
-    this.fecha = moment(this.today).format('yyyy-MM-DD');
+
+    if (this.pqrRes.resId == -1) {
+      this.fecha = moment(this.today).format('yyyy-MM-DD');
+    } else {
+      this.fecha = moment(this.pqrRes.resFechaRespuesta).format('yyyy-MM-DD');
+    }
+
     let fechaActual: Date = new Date(this.fecha);
-    this.tiempoRes = (fechaVencimiento.getTime() - fechaActual.getTime())/86400000;
+    this.tiempoRes = (fechaVencimiento.getTime() - fechaActual.getTime()) / 86400000;
 
     //Algoritmo de tiempo transcurrido
     this.fecha = moment(this.pqrsf.pqrFechaAdmision).format('yyyy-MM-DD');
     let fechaAdmision: Date = new Date(this.fecha);
-    this.tiempoTrascurrido = (fechaActual.getTime() - fechaAdmision.getTime())/86400000;
+    this.tiempoTrascurrido = (fechaActual.getTime() - fechaAdmision.getTime()) / 86400000;
 
     //Algoritmo de tiempo total
-    this.tiempoTotal = (fechaVencimiento.getTime() - fechaAdmision.getTime())/86400000;
+    this.tiempoTotal = (fechaVencimiento.getTime() - fechaAdmision.getTime()) / 86400000;
 
-    if (this.tiempoRes < 0){
+    if (this.tiempoRes < 0) {
       this.tiempoRes = 0;
       this.tiempoPorcentaje = 100;
-    } else {
-      this.tiempoPorcentaje=Math.round((this.tiempoTrascurrido*100)/this.tiempoTotal);
+      if (this.pqrRes.resId == -1) {
+        this.pqrsf.pqrEstado = 'VENCIDA';
+        this.service.updatePqr(this.pqrsf);
+      } 
     }
-    
-    this.pqid = id;
+    else {
+        this.tiempoPorcentaje = Math.round((this.tiempoTrascurrido * 100) / this.tiempoTotal);
+    }
+
+    console.log(this.traza)
   }
 }
 export class ButtonTypesExample {}

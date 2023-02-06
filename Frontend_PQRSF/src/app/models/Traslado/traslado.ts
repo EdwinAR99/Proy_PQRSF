@@ -6,7 +6,7 @@ export class Traslado {
     pqrId!: PQRSF;
     traNombre!: string;
     traDependencia!: string;
-    traOficioNum!: string;
-    traOficio!: string;
+    traOficioNum!: string | null;
+    traAnexo!: string | null;
 
 }

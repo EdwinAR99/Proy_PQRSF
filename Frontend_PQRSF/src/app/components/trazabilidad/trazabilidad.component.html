@@ -1,14 +1,14 @@
-<h4 *ngFor="let Traslado of traza " style="margin: 5px;color: rgb(255, 255, 255); margin: 2%;">Numero de Radicado :
-  {{pqid}}</h4>
+<h4 style="margin: 5px;color: rgb(255, 255, 255); margin-top: 2%;">Numero de Radicado: {{ pqrsf.pqrRadicado }}</h4>
+<h4 style="margin: 5px;color: rgb(255, 255, 255); margin-bottom: 2%;">Estado: {{ pqrsf.pqrEstado }}</h4>
 
 <div class="container">
   <div class="skills">
     <div class="progress-bar">
       <div class="progress-bar--gradient">
-        <div class="progress-bar--progress">
+        <div class="progress-bar--progress" style="--p: {{ tiempoPorcentaje }}%">
           <span class="progress-bar--progress-value"
             matTooltip="numero de oficio {{traza[0].traOficioNum}} , Trasladado a {{traza[0].traNombre}} , Dependencia {{traza[0].traDependencia}} "
-            matTooltipClass="example-tooltip-uppercase">
+            matTooltipClass="example-tooltip-uppercase" aria-label="Button that shows a red tooltip">
             {{tiempoPorcentaje}} %
           </span>
         </div>
@@ -22,9 +22,9 @@
   <br>
 </div>
 <div style="margin: 2%;">
-  <div style="margin-left: 1%;">
+  <div style="margin-left: 1%;" *ngIf="pqrRes.resId == -1">
     <button type="button" class="btn btn-outline-light" (click)=activarEditar()>Nuevo seguimiento</button>
-    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;">Agregar
+    <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;" >Agregar
       Respuesta</button>
   </div>
 </div>
@@ -36,10 +36,10 @@
   <app-respuesta></app-respuesta>
 </div>
 <div class="table-responsive" style="margin: 4%;">
+  <h4 style="margin: 5px;color: rgb(255, 255, 255); margin-bottom: 2%;">SEGUIMIENTO</h4>
   <table class="table">
     <thead>
       <tr class="table-light">
-        <th scope="col">N° Seguimiento</th>
         <th scope="col">N° oficio</th>
         <th scope="col">Traslado</th>
         <th scope="col">Dependencia</th>
@@ -48,7 +48,6 @@
     </thead>
     <tbody class="table-group-divider">
       <tr *ngFor="let Traslado of traza " class="table-light">
-        <td>{{Traslado.traId}}</td>
         <td>{{Traslado.traOficioNum}}</td>
         <td>{{Traslado.traNombre}}</td>
         <td>{{Traslado.traDependencia}}</td>
@@ -56,7 +55,8 @@
 
   </table>
 </div>
-<div class="table-responsive" style="margin: 4%;" *ngIf="pqrRes.resId != null">
+<div class="table-responsive" style="margin: 4%;" *ngIf="pqrRes.resId != -1">
+  <h4 style="margin: 5px;color: rgb(255, 255, 255); margin-bottom: 2%;">RESPUESTA</h4>
   <table class="table">
     <thead>
       <tr class="table-light">
@@ -68,8 +68,9 @@
     <tbody class="table-group-divider">
       <tr class="table-light">
         <td>{{pqrRes.resFechaRespuesta}}</td>
-        <td>{{pqrRes.resOficioR}}</td>
-        <td>{{pqrRes.resTiempoRespuesta}}</td>
+        <td>{{pqrRes.resOficio}}</td>
+        <td>{{pqrRes.resTiempoRespuesta}} día(s)</td>
       </tr>
+    </tbody>
   </table>
 </div>

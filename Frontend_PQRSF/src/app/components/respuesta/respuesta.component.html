@@ -1,20 +1,24 @@
 <div class="content">
-    <form class="row" style="margin-left: 7%;">
+    <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" class="row" style="margin-left: 7%;">
         <div class="col-md-2">
             <label class="form-label">Fecha de Respuesta</label>
-            <input formControlName="pqrFechaAdmision" class="bg-light form-control d-md-flex align-items-md-start"
-            id="pqrFecha" type="date" required="">
+            <input formControlName="resFechaRespuesta" class="bg-light form-control d-md-flex align-items-md-start"
+            id="pqrFecha" type="date" required="" (change)="SendDate($event)">
         </div>
         <div class="col-md-2">
             <label class="form-label">Tiempo de Respuesta</label>
-            <input type="text" class="form-control" id="pqrId" disabled>
+            <input formControlName="resTiempoRespuesta" type="text" class="form-control" id="pqrId" [class.is-invalid]="f.resTiempoRespuesta.errors && f.resTiempoRespuesta.touched">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Oficio de Respuesta</label>
+            <input formControlName="resOficioRespuesta" type="text" class="form-control" id="pqrId" [class.is-invalid]="f.resOficioRespuesta.errors && f.resOficioRespuesta.touched">
         </div>
         <div class="col-md-4">
-            <label class="form-label">Oficio de Respuesta</label>
+            <label class="form-label">Anexo de Respuesta</label>
             <input type="file" class="form-control" id="pqrId">
         </div>
         <div class="col-md-1" style="margin-top: 2%;">
-            <button type="button" class="btn btn-primary" [routerLink]="['/trazabilidad']"
+            <button type="submit" class="btn btn-primary" [routerLink]="['/trazabilidad']"
             routerLinkActive="router-link-active">Guardar</button>
         </div>
 
