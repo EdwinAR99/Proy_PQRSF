@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/Usuario/usuario';
 import { AunthenticathedService } from 'src/app/shared/services/aunthenticathed.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authSv: AunthenticathedService
+    private authSv: AunthenticathedService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit() {
@@ -46,9 +47,9 @@ export class LoginComponent implements OnInit {
 
     if(this.log){
       this.authSv.setIngresar(true);
-      alert("Login valido")
+      this.toastr.success('Inicio Sesión valido');
     } else {
-      alert("Usuario o contraseña invalida")
+      this.toastr.warning('Usuario o contraseña invalida');
     }
 
   }

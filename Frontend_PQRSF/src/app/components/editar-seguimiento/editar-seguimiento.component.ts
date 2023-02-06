@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-seguimiento',
@@ -19,7 +20,8 @@ export class EditarSeguimientoComponent implements OnInit {
 
   constructor (
     private fb: FormBuilder,
-    private pqrSv: PqrsfService
+    private pqrSv: PqrsfService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -63,9 +65,9 @@ export class EditarSeguimientoComponent implements OnInit {
     console.log("Pasa llenar la entidad")
 
     if(!this.pqrSv.addTra(this.tras)){
-      alert("No se pudo agregar el traslado");
+      this.toastr.error(`El traslado ${this.tras.traOficioNum} No se agrego`);
     } else {
-      alert("Traslado agregado correctamente");
+      this.toastr.success(`El traslado ${this.tras.traOficioNum} se agrego Exitosamente`);
     }
 
   }

@@ -5,6 +5,7 @@ import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import { Respuesta } from 'src/app/models/Respuesta/Respuesta';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { Traslado } from 'src/app/models/Traslado/traslado';
+import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
 @Component({
@@ -28,7 +29,9 @@ export class RespuestaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private pqrSv: PqrsfService) 
+    private pqrSv: PqrsfService,
+    private toastr: ToastrService
+    ) 
   {}
 
   ngOnInit(): void{
@@ -95,12 +98,12 @@ export class RespuestaComponent implements OnInit {
     this.llenarEntidad();
 
     if(!this.pqrSv.addRes(this.res)){
-      alert("No se pudo agregar la respuesta");
+      this.toastr.error(`La respuesta ${this.res.resId} No se agrego`);
     } else {
       this.pqr.pqrEstado = 'RESPONDIDA';
       this.pqrSv.updatePqr(this.pqr);
       console.log(this.pqr.traId)
-      alert("Respuesta agregada correctamente");
+      this.toastr.success(`La respuesta ${this.res.resOficio} se agrego Exitosamente`);
     }
   }
 

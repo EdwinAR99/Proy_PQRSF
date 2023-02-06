@@ -29,11 +29,6 @@ export class ListarComponent implements OnInit {
   async getPQRSF(){
     (await this.service.getAll()).subscribe(arg => {this.pqrsf= arg;})
   }
-  applyFilter(event: Event) {
-    const dataSource = new MatTableDataSource(this.pqrsf);
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
   editar(pqr:PQRSF):void{
     localStorage.setItem("id", pqr.pqrId.toString());
   }

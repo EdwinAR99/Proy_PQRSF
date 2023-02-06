@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
+import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { RouterLink } from '@angular/router';
 
@@ -30,7 +31,8 @@ export class RegistrarComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private pqrSv: PqrsfService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private toastr: ToastrService,
   ) { }
 
   /**atributos para la previsualizacion */
@@ -131,9 +133,9 @@ export class RegistrarComponent implements OnInit{
     this.llenarEntidad();
 
     if(!this.pqrSv.addPqr(this.pqr)){
-      alert("No se pudo agregar la peticion");
+      this.toastr.success(`La peticion PQRSF ${this.pqr.pqrRadicado} No se agrefo`);
     } else {
-      alert("Peticion agregada correctamente");
+      this.toastr.success(`La peticion PQRSF ${this.pqr.pqrRadicado} se agrego, Exitosamente`);
     }
   }
 

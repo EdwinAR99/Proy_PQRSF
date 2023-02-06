@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
@@ -25,7 +25,8 @@ export class EditarComponent {
 
   constructor(
     private fb: FormBuilder,
-    private pqrSv: PqrsfService
+    private pqrSv: PqrsfService,
+    private toastr: ToastrService
   ) { }
   
   ngOnInit() {
@@ -124,9 +125,9 @@ export class EditarComponent {
     this.llenarEntidad();
 
     if(!this.pqrSv.updatePqr(this.pqr)){
-      alert("No se pudo agregar la peticion")
+      this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} No se actualizo`);
     } else {
-      alert("Peticion agregada correctamente")
+      this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} se actualizo, Exitosamente`);
     }
 
   }
