@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import { FilterPipe } from './components/Pipes/filter.pipe';
+import { ToastrModule } from 'ngx-toastr';
 //previes pdf
 import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 
@@ -50,7 +51,12 @@ import { RespuestaComponent } from './components/respuesta/respuesta.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+    })
   ],
   providers: [PqrsfService],
   bootstrap: [AppComponent]
