@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrazabilidadComponent } from './components/trazabilidad/trazabilidad.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RespuestaComponent } from './components/respuesta/respuesta.component';
+//import { Observable } from 'rxjs';
 
 @NgModule({
   declarations: [

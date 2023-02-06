@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Respuesta } from 'src/app/models/Respuesta/Respuesta';
-import { ConnectableObservable } from 'rxjs';
+import { Subscriber } from 'rxjs';
+//import { Observable } from 'rxjs/Observable';
 
 
 @Injectable({
@@ -81,6 +82,47 @@ export class PqrsfService {
     
   async getRespuesta(id: number){
     return await this.httpClient.get<Respuesta>(this.urlAPI + "/respuesta/" + id + "/listRespuesta");
+  }
+
+
+  //async addPqrAnexo(formularioAnexo: FormData): Observable<any>{
+    //var result = false;
+    //const body = JSON.stringify(pqr);
+    /*await this.httpClient.post(this.urlAPI + "/pqrsf/anexo", formularioAnexo);//.subscribe((res:any)=>{
+      //result = res;
+    //});
+    //await new Promise(f => setTimeout(f, 1000));
+
+    /*this.rest.post('http://localhost:4200/upload',formularioDeDatos)
+        .suscribe(res=>{
+          console.log('respuesta del servidor',res);
+        })*/
+
+    //return result;
+  //}
+  async addPqrAnexo(formularioAnexo: FormData):Promise<any>{
+    var result:any;
+    //const body = JSON.stringify(pqr);
+    await this.httpClient.post<any>(this.urlAPI + "/pqrsf/anexo", formularioAnexo).subscribe((res:any)=>{
+    result = res;
+    });
+    await new Promise(f => setTimeout(f, 1000));
+
+    /*this.rest.post('http://localhost:4200/upload',formularioDeDatos)
+        .suscribe(res=>{
+          console.log('respuesta del servidor',res);
+        })*/
+
+    return result;
+  }
+  
+  
+  async obtenerAnexo(nameFile: String){
+    var result:any;
+    return await this.httpClient.get<FormData>(this.urlAPI + "/pqrsf/"+ nameFile).subscribe((res:any)=>{
+      result = res;
+      console.log(result);
+      });
   }
 
 }

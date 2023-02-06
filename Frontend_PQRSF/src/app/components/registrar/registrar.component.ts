@@ -22,7 +22,7 @@ export class RegistrarComponent implements OnInit{
   tras: Traslado = new Traslado();
   pet: Peticionario = new Peticionario();
 
-  //Fechas
+  //Fechass
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
@@ -39,6 +39,9 @@ export class RegistrarComponent implements OnInit{
   public archivos: any = [];
   public previFaile:string="";
   archivoadjunto!: File;
+  //Atributo para la =aptura del anexo
+  nombreAnexo: string="";
+  mensaje: any;
   
   
   ngOnInit() {
@@ -145,7 +148,12 @@ export class RegistrarComponent implements OnInit{
     this.tras.traDependencia = this.myForm.value.traDependencia;
 
     //corregir con la url
-    //this.pqr.pqrAnexo = this.archivoadjunto;
+    this.pqr.pqrAnexo = "http:\\localhost:8080\\pqrsf\\"+ this.nombreAnexo;
+    /**
+     * "D:\\Semestre 8\\Proyecto I\\version 9\\
+     * Proy_PQRSF-master\\backend_PQRSF\\MapaConceptualServicios_juanmanriv.pdf\\
+     * http:\\localhost:8080\\pqrsf\\MapaConceptualServicios_juanmanriv.pdf"
+     */
     
     this.pqr.traId = [this.tras];
     this.pqr.pqrMedio = this.myForm.value.pqrMedio;
@@ -172,6 +180,7 @@ export class RegistrarComponent implements OnInit{
   
   capturarFile(event: any) {
     const archivoCapturado = event.target.files[0];
+    this.nombreAnexo = event.target.files[0].name;
     this.archivoadjunto = archivoCapturado;
     this.pqr.pqrAnexo;
     this.extraerBase(archivoCapturado).then((filePDF:any)=>{
@@ -199,6 +208,39 @@ export class RegistrarComponent implements OnInit{
       }
       return null;
     });
+
+    subirArchivo():any{
+      try{
+        const formularioDeDatos = new FormData();
+        this.archivos.forEach((archivo:any) => {
+          console.log(archivo);
+          formularioDeDatos.append('files',archivo)
+        });
+        /*this.pqrSv.addPqrAnexo(formularioDeDatos).subscribe(response =>{
+          console.log('response',response);
+          this.mensaje = response.url;
+        })
+        */
+        this.mensaje = this.pqrSv.addPqrAnexo(formularioDeDatos);
+        console.log(this.mensaje);
+        /*
+        if(!this.pqrSv.addPqrAnexo(formularioDeDatos)){
+          alert("No se pudo agregar el anexo");
+        } else {
+          alert("Anexo agregado correctamente");
+        }
+        */
+        /*this.rest.post('http://localhost:4200/upload',formularioDeDatos)
+        .suscribe(res=>{
+          console.log('respuesta del servidor',res);
+        })*/
+      }catch(e){
+        console.log('ERROR', e);
+      }
+    }
+
+    
+
 
 }
 
