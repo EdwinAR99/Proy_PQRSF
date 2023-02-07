@@ -138,9 +138,16 @@
                 <input formControlName="petCorreo" class="form-control" type="email" id="petCorreo"
                     placeholder="Correo Electrónico">
             </div>
-
-            <button class="btn btn-primary btnGuardar" id="btnGardar" (click)="subirArchivo()" type="submit">Guardar Registro
+            <button class="btn btn-primary btnGuardar" id="btnGardar" (click)="openModal(template)"  type="submit">Guardar Registro
             </button>
         </form>
+
     </div>
 </section>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Agregar  la peticion?</p>
+    <button type="button" class="btn btn-primary" (click)="confirm()" [routerLink]="['/']" >Si</button>
+    <button type="button" class="btn btn-default" (click)="decline()" >No</button>
+  </div>
+</ng-template>

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       this.authSv.setIngresar(true);
       this.toastr.success('Inicio Sesión valido');
     } else {
-      this.toastr.warning('Usuario o contraseña invalida');
+      this.toastr.warning('Usuario o contraseña invalida','Alerta');
     }
 
   }

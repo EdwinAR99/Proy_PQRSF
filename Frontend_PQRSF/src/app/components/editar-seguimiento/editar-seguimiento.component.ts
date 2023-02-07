@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
-import { Peticionario } from 'src/app/models/Peticionario/peticionario';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,9 +21,43 @@ export class EditarSeguimientoComponent implements OnInit {
   constructor (
     private fb: FormBuilder,
     private pqrSv: PqrsfService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: BsModalService,
   ) {}
 
+  //comfirm dialog
+  modalRef?: BsModalRef;
+  message: boolean = false;
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirm(): void {
+    console.log("Entra a la funcion")
+    if(this.myForm.invalid){
+      Object.values(this.myForm.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
+      return;
+    }
+    console.log("Pasa validaciones")
+
+    this.llenarEntidad();
+    console.log("Pasa llenar la entidad")
+
+    if(!this.pqrSv.addTra(this.tras)){
+      this.toastr.error(`El traslado ${this.tras.traOficioNum} No se agrego`);
+    } else {
+      this.toastr.success(`El traslado ${this.tras.traOficioNum} se agrego Exitosamente`);
+    }
+  }
+
+  decline(): void {
+    this.message = false;
+    this.modalRef?.hide();
+  }
+  
   ngOnInit(): void {
     this.myForm = this.fb.group({
       traOficioNum:['', Validators.required],
@@ -52,23 +86,6 @@ export class EditarSeguimientoComponent implements OnInit {
   }
 
   public submitFormulario() {
-    console.log("Entra a la funcion")
-    if(this.myForm.invalid){
-      Object.values(this.myForm.controls).forEach(control=>{
-        control.markAllAsTouched();
-      });
-      return;
-    }
-    console.log("Pasa validaciones")
-
-    this.llenarEntidad();
-    console.log("Pasa llenar la entidad")
-
-    if(!this.pqrSv.addTra(this.tras)){
-      this.toastr.error(`El traslado ${this.tras.traOficioNum} No se agrego`);
-    } else {
-      this.toastr.success(`El traslado ${this.tras.traOficioNum} se agrego Exitosamente`);
-    }
 
   }
 

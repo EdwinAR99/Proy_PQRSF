@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-editar',
@@ -26,9 +27,38 @@ export class EditarComponent {
   constructor(
     private fb: FormBuilder,
     private pqrSv: PqrsfService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: BsModalService,
   ) { }
   
+  //comfirm dialog
+  modalRef?: BsModalRef;
+  message: boolean=false;
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirm(): void {
+    if(this.myForm.invalid){
+      Object.values(this.myForm.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
+      return;
+    }
+
+    this.llenarEntidad();
+
+    if(!this.pqrSv.updatePqr(this.pqr)){
+      this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} No se actualizo`);
+    } else {
+      this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} se actualizo, Exitosamente`);
+    }
+  }
+  decline(): void {
+    this.message = false;
+    this.modalRef?.hide();
+  }
   ngOnInit() {
     this.myForm = this.fb.group({
       pqrRadicado:[{value: '', disabled: true}, Validators.required],
@@ -115,20 +145,7 @@ export class EditarComponent {
 
   public submitFormulario(){
 
-    if(this.myForm.invalid){
-      Object.values(this.myForm.controls).forEach(control=>{
-        control.markAllAsTouched();
-      });
-      return;
-    }
-
-    this.llenarEntidad();
-
-    if(!this.pqrSv.updatePqr(this.pqr)){
-      this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} No se actualizo`);
-    } else {
-      this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} se actualizo, Exitosamente`);
-    }
+    
 
   }
 

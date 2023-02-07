@@ -129,8 +129,15 @@
                     placeholder="Correo Electrónico">
             </div>
 
-            <button class="btn btn-primary btnGuardar" id="btnGardar" type="submit">Actualizar Registro
+            <button class="btn btn-primary btnGuardar" id="btnGardar" (click)="openModal(template)"  type="submit">Actualizar Registro
             </button>
         </form>
     </div>
 </section>
+<ng-template #template>
+    <div class="modal-body text-center">
+      <p>Agregar  la peticion?</p>
+      <button type="button" class="btn btn-primary" (click)="confirm()" [routerLink]="['/']" >Si</button>
+      <button type="button" class="btn btn-default" (click)="decline()" >No</button>
+    </div>
+  </ng-template>
