@@ -50,8 +50,10 @@ public class TraServicioImpl implements TraServicio {
 			aux.setPqrId(tra.getPqrId());
 			aux.setTraNombre(tra.getTraNombre());
 			aux.setTraDependencia(tra.getTraDependencia());
+			aux.setTraOficioFecha(tra.getTraOficioFecha());
+			aux.setTraOficioSeg(tra.getTraOficioSeg());
 			aux.setTraOficioNum(tra.getTraOficioNum());
-			aux.setTraOficio(tra.getTraAnexo());
+			aux.setTraAnexo(tra.getTraAnexo());
 			traRepositorio.save(aux);
 			return true;
 		} else {

@@ -28,6 +28,9 @@ public class Respuesta {
 	
     @Column(name="resOficio")
     private String resOficio;
+    
+    @Column(name="resMensaje")
+    private String resMensaje;
 	
 	@Column(name="resAnexo")
 	private String resAnexo;
@@ -41,14 +44,17 @@ public class Respuesta {
     public Respuesta() {
     }
 
-    public Respuesta(int resId,PQRSF pqrId, String resOficio, String resAnexo, Date resFechaRespuesta, int resTiempoRespuesta) {
-        this.resId = resId;
-        this.pqrId = pqrId;
-        this.resOficio = resOficio;
-        this.resAnexo = resAnexo;
-        this.resFechaRespuesta = resFechaRespuesta;
-        this.resTiempoRespuesta = resTiempoRespuesta;
-    }
+	public Respuesta(int resId, PQRSF pqrId, String resOficio, String resMensaje, String resAnexo,
+			Date resFechaRespuesta, int resTiempoRespuesta) {
+		super();
+		this.resId = resId;
+		this.pqrId = pqrId;
+		this.resOficio = resOficio;
+		this.resMensaje = resMensaje;
+		this.resAnexo = resAnexo;
+		this.resFechaRespuesta = resFechaRespuesta;
+		this.resTiempoRespuesta = resTiempoRespuesta;
+	}
 
 	public int getResId() {
 		return resId;
@@ -72,6 +78,14 @@ public class Respuesta {
 
 	public void setResOficio(String resOficio) {
 		this.resOficio = resOficio;
+	}
+
+	public String getResMensaje() {
+		return resMensaje;
+	}
+
+	public void setResMensaje(String resMensaje) {
+		this.resMensaje = resMensaje;
 	}
 
 	public String getResAnexo() {

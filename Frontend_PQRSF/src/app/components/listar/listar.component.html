@@ -23,7 +23,7 @@
     </thead>
     <tbody class="table-group-divider">
       <tr *ngFor="let PQRSF of pqrsf | filter:filterPost" class="table-light" >
-        <th scope="row">1</th>
+        <td>{{PQRSF.pqrRadicado}}</td>
         <td>{{PQRSF.pqrFechaAdmision}}</td>
         <td>{{PQRSF.pqrFechaVencimiento}}</td>
         <td>{{PQRSF.petId.petTipo}}</td>

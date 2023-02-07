@@ -1,4 +1,5 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -7,6 +8,7 @@ import { Peticionario } from 'src/app/models/Peticionario/peticionario';
 import { PqrsfService } from 'src/app/shared/services/pqrsf.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
@@ -16,7 +18,6 @@ export class EditarComponent {
 
   myForm!: FormGroup;
   pqr: PQRSF = new PQRSF();
-  tras: Traslado = new Traslado();
   pet: Peticionario = new Peticionario();
 
   //Fechas
@@ -24,9 +25,21 @@ export class EditarComponent {
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
 
+  /**atributos para la previsualizacion */
+  files: any = [];
+  loading: boolean = true;
+  public archivos: any = [];
+  public previFile: string = "";
+  archivoadjunto!: File;
+  //Atributo para la =aptura del anexo
+  nombreAnexo: string = "";
+  mensaje: any;
+  object: any;
+
   constructor(
     private fb: FormBuilder,
     private pqrSv: PqrsfService,
+    private sanitizer: DomSanitizer,
     private toastr: ToastrService,
     private modalService: BsModalService,
   ) { }
@@ -46,8 +59,10 @@ export class EditarComponent {
       });
       return;
     }
+    console.log("Paso las validaciones")
 
     this.llenarEntidad();
+    console.log("Lleno la entidad")
 
     if(!this.pqrSv.updatePqr(this.pqr)){
       this.toastr.success(`La PQRSF ${this.pqr.pqrRadicado} No se actualizo`);
@@ -65,9 +80,6 @@ export class EditarComponent {
       pqrFechaAdmision:[{value: '', disabled: true}, Validators.required],
       pqrFechaVencimiento:[ '' , Validators.required],
       pqrTipo:[{value: '', disabled: true}, Validators.required],
-      traOficioNum:['', Validators.required],
-      traNombre:['', Validators.required],
-      traDependencia:['', Validators.required],
       pqrMedio:['', Validators.required],
       pqrAsunto:['', Validators.required],
       petTipo:['', Validators.required],
@@ -89,6 +101,23 @@ export class EditarComponent {
     );
     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
     await new Promise(f => setTimeout(f, 1000));
+
+    (await this.pqrSv.obtenerAnexoPQR(this.pqr.pqrAnexo)).subscribe((res) => {
+      this.object = res;
+      console.log(res)
+    });
+
+    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
+    await new Promise(f => setTimeout(f, 1000));
+
+    this.extraerBase(this.object).then((filePDF: any) => {
+      this.previFile = filePDF.base;
+      console.log(filePDF);
+    });
+    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
+    await new Promise(f => setTimeout(f, 1000));
+    console.log(this.object)
+    console.log(this.previFile);
 
     //Llena los campos del formulario
     this.myForm.patchValue({
@@ -145,8 +174,6 @@ export class EditarComponent {
 
   public submitFormulario(){
 
-    
-
   }
 
   public llenarEntidad(){
@@ -154,12 +181,7 @@ export class EditarComponent {
     this.pqr.pqrTipo = this.myForm.value.pqrTipo;
     this.pqr.pqrFechaAdmision = this.pipe.transform(this.myForm.value.pqrFechaAdmision, 'yyyy-MM-dd');
     this.pqr.pqrFechaVencimiento = this.pipe.transform(this.myForm.value.pqrFechaVencimiento, 'yyyy-MM-dd');
-    
-    this.tras.traOficioNum = this.myForm.value.traOficioNum;
-    this.tras.traNombre = this.myForm.value.traNombre;
-    this.tras.traDependencia = this.myForm.value.traDependencia;
 
-    this.pqr.traId = [this.tras];
     this.pqr.pqrMedio = this.myForm.value.pqrMedio;
     this.pqr.pqrAsunto = this.myForm.value.pqrAsunto;
 
@@ -181,5 +203,24 @@ export class EditarComponent {
 
     this.pqr.pqrEstado = 'TRAMITE';
   }
+
+  extraerBase = async ($event: any) =>
+    new Promise((resolve, reject) => {
+      try {
+        const unsafeFile = window.URL.createObjectURL($event);
+        const filePDF = this.sanitizer.bypassSecurityTrustUrl(unsafeFile);
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => {
+          resolve({ base: reader.result });
+        };
+        reader.onerror = (error) => {
+          resolve({ base: null });
+        };
+      } catch (e) {
+        return null;
+      }
+      return null;
+    });
 
 }

@@ -6,6 +6,14 @@
     flex-direction: column;
 
   }
+
+#pnlPreview {
+  position: relative;
+  margin: 15px;
+  width: 40%;
+  left: 20px;
+  height: 300px;
+}
   
   label {
     color: rgb(255, 255, 255);

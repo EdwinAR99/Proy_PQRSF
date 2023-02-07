@@ -36,7 +36,7 @@ export class ListarComponent implements OnInit {
     localStorage.setItem("id", pqr.pqrId.toString());
   }
 
-  //Obteniendo pdf del back
+  /*/Obteniendo pdf del back
   obtenerPDF() {
     const formularioDeDatosObtenido = this.service.obtenerAnexo("Apuntes.pdf");
 
@@ -50,7 +50,8 @@ export class ListarComponent implements OnInit {
     })
     this.archivos.push(formularioDeDatosObtenido);
     //console.log(event.target.files);
-  }
+  }*/
+
   extraerBase = async ($event: any) =>
     new Promise((resolve, reject) => {
       try {

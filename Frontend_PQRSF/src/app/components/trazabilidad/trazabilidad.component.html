@@ -23,7 +23,7 @@
 </div>
 <div style="margin: 2%;">
   <div style="margin-left: 1%;" *ngIf="pqrRes.resId == -1">
-    <button type="button" class="btn btn-outline-light" (click)=activarEditar()>Nuevo seguimiento</button>
+    <button type="button" class="btn btn-outline-light" (click)=activarEditar()>Nuevo Traslado</button>
     <button type="button" class="btn btn-outline-light" (click)=activarRespuesta() style="margin-left: 1%;" >Agregar
       Respuesta</button>
   </div>
@@ -42,6 +42,7 @@
       <tr class="table-light">
         <th scope="col">N° oficio</th>
         <th scope="col">Traslado</th>
+        <th scope="col">Fecha</th>
         <th scope="col">Dependencia</th>
         <th scope="col">Oficio de Trasladado</th>
       </tr>
@@ -50,8 +51,10 @@
       <tr *ngFor="let Traslado of traza " class="table-light">
         <td>{{Traslado.traOficioNum}}</td>
         <td>{{Traslado.traNombre}}</td>
+        <td>{{Traslado.traOficioFecha}}</td>
         <td>{{Traslado.traDependencia}}</td>
-        <td></td>
+        <td>{{Traslado.traOficioSeg}}</td>
+
 
   </table>
 </div>

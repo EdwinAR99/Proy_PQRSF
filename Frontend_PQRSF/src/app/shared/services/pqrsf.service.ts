@@ -84,22 +84,8 @@ export class PqrsfService {
     return await this.httpClient.get<Respuesta>(this.urlAPI + "/respuesta/" + id + "/listRespuesta");
   }
 
+  //GESTION DE ANEXOS
 
-  //async addPqrAnexo(formularioAnexo: FormData): Observable<any>{
-    //var result = false;
-    //const body = JSON.stringify(pqr);
-    /*await this.httpClient.post(this.urlAPI + "/pqrsf/anexo", formularioAnexo);//.subscribe((res:any)=>{
-      //result = res;
-    //});
-    //await new Promise(f => setTimeout(f, 1000));
-
-    /*this.rest.post('http://localhost:4200/upload',formularioDeDatos)
-        .suscribe(res=>{
-          console.log('respuesta del servidor',res);
-        })*/
-
-    //return result;
-  //}
   async addPqrAnexo(formularioAnexo: FormData):Promise<any>{
     var result:any;
     //const body = JSON.stringify(pqr);
@@ -108,21 +94,47 @@ export class PqrsfService {
     });
     await new Promise(f => setTimeout(f, 1000));
 
-    /*this.rest.post('http://localhost:4200/upload',formularioDeDatos)
-        .suscribe(res=>{
-          console.log('respuesta del servidor',res);
-        })*/
-
     return result;
   }
   
   
-  async obtenerAnexo(nameFile: String){
-    var result:any;
-    return await this.httpClient.get<FormData>(this.urlAPI + "/pqrsf/"+ nameFile).subscribe((res:any)=>{
-      result = res;
-      console.log(result);
-      });
+  async obtenerAnexoPQR(nameFile: String){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return await this.httpClient.get(this.urlAPI + "/pqrsf/"+ nameFile, { headers: headers, responseType: 'blob' })
   }
 
+  async addTraAnexo(formularioAnexo: FormData):Promise<any>{
+    var result:any;
+    //const body = JSON.stringify(pqr);
+    await this.httpClient.post<any>(this.urlAPI + "/traslado/anexo", formularioAnexo).subscribe((res:any)=>{
+    result = res;
+    });
+    await new Promise(f => setTimeout(f, 1000));
+
+    return result;
+  }
+
+  async obtenerAnexoTRA(nameFile: String){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return await this.httpClient.get(this.urlAPI + "/traslado/"+ nameFile), { headers: headers, responseType: 'blob' };
+  }
+
+  async addResAnexo(formularioAnexo: FormData):Promise<any>{
+    var result:any;
+    //const body = JSON.stringify(pqr);
+    await this.httpClient.post<any>(this.urlAPI + "/traslado/anexo", formularioAnexo).subscribe((res:any)=>{
+    result = res;
+    });
+    await new Promise(f => setTimeout(f, 1000));
+
+    return result;
+  }
+
+  async obtenerAnexoRES(nameFile: String){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return await this.httpClient.get(this.urlAPI + "/respuesta/"+ nameFile), { headers: headers, responseType: 'blob' };
+  }
 }

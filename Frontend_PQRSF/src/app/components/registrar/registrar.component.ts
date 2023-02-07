@@ -55,17 +55,16 @@ export class RegistrarComponent implements OnInit {
     }
 
     this.llenarEntidad();
-     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
 
       if (!this.pqrSv.addPqr(this.pqr)) {
         this.toastr.success(`La peticion PQRSF ${this.pqr.pqrRadicado} No se registro`);
       } else {
         this.toastr.success(`La peticion PQRSF ${this.pqr.pqrRadicado} se registo, Exitosamente`);
+        this.subirArchivo();
       }
     
     this.message = true;
     this.modalRef?.hide();
-    this.subirArchivo();
   }
 
   decline(): void {
@@ -170,10 +169,12 @@ export class RegistrarComponent implements OnInit {
 
     this.tras.traOficioNum = this.myForm.value.traOficioNum;
     this.tras.traNombre = this.myForm.value.traNombre;
+    this.tras.traOficioFecha = this.pqr.pqrFechaAdmision;
     this.tras.traDependencia = this.myForm.value.traDependencia;
 
     //corregir con la url
-    this.pqr.pqrAnexo = "http:\\localhost:8080\\pqrsf\\" + this.nombreAnexo;
+    this.pqr.pqrAnexo = this.nombreAnexo;
+    this.tras.traAnexo =  this.pqr.pqrAnexo;
     /**
      * "D:\\Semestre 8\\Proyecto I\\version 9\\
      * Proy_PQRSF-master\\backend_PQRSF\\MapaConceptualServicios_juanmanriv.pdf\\
@@ -213,8 +214,8 @@ export class RegistrarComponent implements OnInit {
       console.log(filePDF);
     })
     this.archivos.push(archivoCapturado);
-    //console.log(event.target.files);
   }
+
   extraerBase = async ($event: any) =>
     new Promise((resolve, reject) => {
       try {
@@ -241,24 +242,8 @@ export class RegistrarComponent implements OnInit {
         console.log(archivo);
         formularioDeDatos.append('files', archivo)
       });
-      /*this.pqrSv.addPqrAnexo(formularioDeDatos).subscribe(response =>{
-        console.log('response',response);
-        this.mensaje = response.url;
-      })
-      */
       this.mensaje = this.pqrSv.addPqrAnexo(formularioDeDatos);
       console.log(this.mensaje);
-      /*
-      if(!this.pqrSv.addPqrAnexo(formularioDeDatos)){
-        alert("No se pudo agregar el anexo");
-      } else {
-        alert("Anexo agregado correctamente");
-      }
-      */
-      /*this.rest.post('http://localhost:4200/upload',formularioDeDatos)
-      .suscribe(res=>{
-        console.log('respuesta del servidor',res);
-      })*/
     } catch (e) {
       console.log('ERROR', e);
     }

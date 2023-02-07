@@ -6,6 +6,7 @@ import { Respuesta } from 'src/app/models/Respuesta/Respuesta';
 import { PQRSF } from 'src/app/models/PQRSF/pqrsf';
 import { Traslado } from 'src/app/models/Traslado/traslado';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
@@ -28,9 +29,20 @@ export class RespuestaComponent implements OnInit {
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
 
+  /**atributos para la previsualizacion */
+  files: any = [];
+  loading: boolean = true;
+  public archivos: any = [];
+  public previFaile: string = "";
+  archivoadjunto!: File;
+  //Atributo para la =aptura del anexo
+  nombreAnexo: string = "";
+  mensaje: any;
+
   constructor(
     private fb: FormBuilder,
     private pqrSv: PqrsfService,
+    private sanitizer: DomSanitizer,
     private toastr: ToastrService,
     private modalService: BsModalService,
   ) { }
@@ -57,19 +69,25 @@ export class RespuestaComponent implements OnInit {
     } else {
       this.pqr.pqrEstado = 'RESPONDIDA';
       this.pqrSv.updatePqr(this.pqr);
-      console.log(this.pqr.traId)
       this.toastr.success(`La respuesta ${this.res.resOficio} se agrego Exitosamente`);
+      this.subirArchivo();
     }
+
+    this.message = true;
+    this.modalRef?.hide();
   }
+
   decline(): void {
     this.message = false;
     this.modalRef?.hide();
   }
+
   ngOnInit(): void {
     this.myForm = this.fb.group({
       resFechaRespuesta: ['', Validators.required],
       resTiempoRespuesta: [{ value: '', disabled: true }],
-      resOficioRespuesta: ['', Validators.required]
+      resOficioRespuesta: ['', Validators.required],
+      resMensaje:['']
     });
 
     this.rellenarForm();
@@ -128,6 +146,52 @@ export class RespuestaComponent implements OnInit {
     this.res.resFechaRespuesta = this.pipe.transform(this.myForm.value.resFechaRespuesta, 'yyyy-MM-dd');
     this.res.resTiempoRespuesta = this.tiempoRes;
     this.res.resOficio = this.myForm.value.resOficioRespuesta;
+    this.res.resMensaje = this.myForm.value.resMensaje;
+  }
+
+  capturarFile(event: any) {
+    const archivoCapturado = event.target.files[0];
+    this.nombreAnexo = event.target.files[0].name;
+    this.archivoadjunto = archivoCapturado;
+    this.pqr.pqrAnexo;
+    this.extraerBase(archivoCapturado).then((filePDF: any) => {
+      this.previFaile = filePDF.base;
+      console.log(filePDF);
+    })
+    this.archivos.push(archivoCapturado);
+  }
+
+  extraerBase = async ($event: any) =>
+    new Promise((resolve, reject) => {
+      try {
+        const unsafeFile = window.URL.createObjectURL($event);
+        const filePDF = this.sanitizer.bypassSecurityTrustUrl(unsafeFile);
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => {
+          resolve({ base: reader.result });
+        };
+        reader.onerror = (error) => {
+          resolve({ base: null });
+        };
+      } catch (e) {
+        return null;
+      }
+      return null;
+    });
+
+  subirArchivo(): any {
+    try {
+      const formularioDeDatos = new FormData();
+      this.archivos.forEach((archivo: any) => {
+        console.log(archivo);
+        formularioDeDatos.append('files', archivo)
+      });
+      this.mensaje = this.pqrSv.addResAnexo(formularioDeDatos);
+      console.log(this.mensaje);
+    } catch (e) {
+      console.log('ERROR', e);
+    }
   }
 
 }

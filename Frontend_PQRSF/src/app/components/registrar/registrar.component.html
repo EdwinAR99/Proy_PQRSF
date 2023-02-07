@@ -14,9 +14,6 @@
                       style="width: 100%; height: 500px"
                     ></pdf-viewer>
                   
-                <!--<div class="card-body">
-                    <iframe src="{{Spqr}}" width="100%" height="50px" frameborder="0"></iframe>
-                </div>-->
             </div>
 
             <div id="pqrRadicado">
@@ -59,7 +56,7 @@
             <div id="traOficioNum">
                 <input formControlName="traOficioNum"
                     [class.is-invalid]="f.traOficioNum.errors && f.traOficioNum.touched"
-                    class="form-control d-md-flex align-items-md-start" type="text" placeholder="Número de Oficio"
+                    class="form-control d-md-flex align-items-md-start" type="text" placeholder="Número de Oficio del Traslado"
                     required="">
                 <div id="validationFeeback" class="invalid-feedback">
                     Numero de oficio obligatorio.
@@ -147,7 +144,7 @@
 <ng-template #template>
   <div class="modal-body text-center">
     <p>Agregar  la peticion?</p>
-    <button type="button" class="btn btn-primary" (click)="confirm()" [routerLink]="['/']" >Si</button>
+    <button type="button" class="btn btn-primary" (click)="confirm()" (click)="subirArchivo()" [routerLink]="['/']" >Si</button>
     <button type="button" class="btn btn-default" (click)="decline()" >No</button>
   </div>
 </ng-template>

@@ -1,6 +1,7 @@
 package com.co.unicaca.pqrsf.entidad;
 
 import java.util.Arrays;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,12 @@ public class Traslado {
     @Column(name="traDependencia")
     private String traDependencia;
     
+    @Column(name="traOficioFecha")
+    private Date traOficioFecha;
+    
+    @Column(name="traOficioSeg")
+    private String traOficioSeg;
+    
     @Column(name="traOficioNum")
     private String traOficioNum;
 
@@ -43,11 +50,15 @@ public class Traslado {
 	public Traslado() {
 	}
 
-	public Traslado(int traId, PQRSF pqrId, String traNombre, String traDependencia, String traOficioNum, String traAnexo) {
+	public Traslado(int traId, PQRSF pqrId, String traNombre, String traDependencia, Date traOficioFecha,
+			String traOficioSeg, String traOficioNum, String traAnexo) {
+		super();
 		this.traId = traId;
 		this.pqrId = pqrId;
 		this.traNombre = traNombre;
 		this.traDependencia = traDependencia;
+		this.traOficioFecha = traOficioFecha;
+		this.traOficioSeg = traOficioSeg;
 		this.traOficioNum = traOficioNum;
 		this.traAnexo = traAnexo;
 	}
@@ -84,6 +95,22 @@ public class Traslado {
 		this.traDependencia = traDependencia;
 	}
 
+	public Date getTraOficioFecha() {
+		return traOficioFecha;
+	}
+
+	public void setTraOficioFecha(Date traOficioFecha) {
+		this.traOficioFecha = traOficioFecha;
+	}
+
+	public String getTraOficioSeg() {
+		return traOficioSeg;
+	}
+
+	public void setTraOficioSeg(String traOficioSeg) {
+		this.traOficioSeg = traOficioSeg;
+	}
+
 	public String getTraOficioNum() {
 		return traOficioNum;
 	}
@@ -96,16 +123,15 @@ public class Traslado {
 		return traAnexo;
 	}
 
-	public void setTraOficio(String traAnexo) {
+	public void setTraAnexo(String traAnexo) {
 		this.traAnexo = traAnexo;
 	}
 
 	@Override
 	public String toString() {
 		return "Traslado [traId=" + traId + ", pqrId=" + pqrId + ", traNombre=" + traNombre + ", traDependencia="
-				+ traDependencia + ", traOficioNum=" + traOficioNum + ", traAnexo=" + traAnexo + "]";
-	}
-
-	
+				+ traDependencia + ", traOficioFecha=" + traOficioFecha + ", traOficioSeg=" + traOficioSeg
+				+ ", traOficioNum=" + traOficioNum + ", traAnexo=" + traAnexo + "]";
+	}	
     
 }

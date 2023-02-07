@@ -3,11 +3,15 @@
             src="/assets/img/antorcha.png?h=36ddac2d96327445ed22a819ba25f9df"></div>
     <div id="divform" class="divform">
         <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" id="formregistro" class="formregistro">
-            <div class="card" id="pnlPreview">
-                <div class="card-body">
-
-                </div>
-            </div>
+            <div class="card" id="pnlPreview" *ngIf="previFile">
+                <pdf-viewer 
+                  [src]="previFile"
+                  [render-text]="true"
+                  [original-size]="false"
+                  style="width: 100%; height: 500px"
+                ></pdf-viewer>
+              
+        </div>
 
             <div id="pqrRadicado">
                 <input formControlName="pqrRadicado" [class.is-invalid]="f.pqrRadicado.errors && f.pqrRadicado.touched"
@@ -136,7 +140,7 @@
 </section>
 <ng-template #template>
     <div class="modal-body text-center">
-      <p>Agregar  la peticion?</p>
+      <p>Editar la peticion?</p>
       <button type="button" class="btn btn-primary" (click)="confirm()" [routerLink]="['/']" >Si</button>
       <button type="button" class="btn btn-default" (click)="decline()" >No</button>
     </div>
