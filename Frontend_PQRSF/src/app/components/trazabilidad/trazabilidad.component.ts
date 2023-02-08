@@ -51,6 +51,13 @@ export class TrazabilidadComponent implements OnInit {
   ngOnInit(): void {
     this.getSeguimiento();
   }
+  //tomar id de anexo
+  getAnexo(tra:Traslado):void{
+    localStorage.setItem("id", tra.traId.toString());
+    //guardar en var
+    var id = JSON.parse(localStorage.getItem('id') || '0');
+  }
+ 
 
   async getSeguimiento() {
     var id = JSON.parse(localStorage.getItem('id') || '3');

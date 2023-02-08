@@ -53,6 +53,7 @@ export class EditarComponent {
   }
 
   confirm(): void {
+    this.modalRef?.hide();
     if(this.myForm.invalid){
       Object.values(this.myForm.controls).forEach(control=>{
         control.markAllAsTouched();

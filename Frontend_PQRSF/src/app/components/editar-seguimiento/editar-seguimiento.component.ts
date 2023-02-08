@@ -51,6 +51,8 @@ export class EditarSeguimientoComponent implements OnInit {
   }
 
   confirm(): void {
+    this.message = true;
+    this.modalRef?.hide();
     console.log("Entra a la funcion")
     if(this.myForm.invalid){
       Object.values(this.myForm.controls).forEach(control=>{
@@ -68,8 +70,6 @@ export class EditarSeguimientoComponent implements OnInit {
       this.subirArchivo();
     }
 
-    this.message = true;
-    this.modalRef?.hide();
   }
 
   decline(): void {
